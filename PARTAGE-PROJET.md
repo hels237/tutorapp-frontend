@@ -1,7 +1,5 @@
 # 📤 Partage du Projet TutorApp
 
-## Pour votre ami en France
-
 ### 📦 Fichiers à envoyer
 Envoyez tout le dossier `TutorApp` ou créez une archive :
 
