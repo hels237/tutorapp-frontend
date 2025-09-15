@@ -1,0 +1,150 @@
+/* Layout System - Normes internationales */
+
+/* Container système avec marges sécurisées */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; /* 16px */
+  padding-right: 1rem; /* 16px */
+}
+
+/* Breakpoints standards */
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+    padding-left: 1.5rem; /* 24px */
+    padding-right: 1.5rem; /* 24px */
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding-left: 2rem; /* 32px */
+    padding-right: 2rem; /* 32px */
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+    padding-left: 2.5rem; /* 40px */
+    padding-right: 2.5rem; /* 40px */
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1200px; /* Largeur optimale pour la lisibilité */
+    padding-left: 3rem; /* 48px */
+    padding-right: 3rem; /* 48px */
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1400px;
+    padding-left: 4rem; /* 64px */
+    padding-right: 4rem; /* 64px */
+  }
+}
+
+/* Sections avec espacement cohérent */
+.section-padding {
+  padding-top: 4rem; /* 64px */
+  padding-bottom: 4rem; /* 64px */
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 5rem; /* 80px */
+    padding-bottom: 5rem; /* 80px */
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding-top: 6rem; /* 96px */
+    padding-bottom: 6rem; /* 96px */
+  }
+}
+
+/* Grilles avec gaps cohérents */
+.grid-gap-sm {
+  gap: 1rem; /* 16px */
+}
+
+.grid-gap-md {
+  gap: 1.5rem; /* 24px */
+}
+
+@media (min-width: 768px) {
+  .grid-gap-md {
+    gap: 2rem; /* 32px */
+  }
+}
+
+.grid-gap-lg {
+  gap: 2rem; /* 32px */
+}
+
+@media (min-width: 768px) {
+  .grid-gap-lg {
+    gap: 2.5rem; /* 40px */
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-gap-lg {
+    gap: 3rem; /* 48px */
+  }
+}
+
+/* Cards avec espacement interne cohérent */
+.card-padding-sm {
+  padding: 1rem; /* 16px */
+}
+
+.card-padding-md {
+  padding: 1.5rem; /* 24px */
+}
+
+@media (min-width: 768px) {
+  .card-padding-md {
+    padding: 2rem; /* 32px */
+  }
+}
+
+.card-padding-lg {
+  padding: 2rem; /* 32px */
+}
+
+@media (min-width: 768px) {
+  .card-padding-lg {
+    padding: 2.5rem; /* 40px */
+  }
+}
+
+/* Marges sécurisées pour mobile */
+.safe-area {
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+/* Largeurs de contenu optimales */
+.content-width-sm {
+  max-width: 42rem; /* 672px - optimal pour la lecture */
+}
+
+.content-width-md {
+  max-width: 48rem; /* 768px */
+}
+
+.content-width-lg {
+  max-width: 56rem; /* 896px */
+}
+
+.content-width-xl {
+  max-width: 64rem; /* 1024px */
+}

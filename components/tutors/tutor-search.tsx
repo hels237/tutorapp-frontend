@@ -1,0 +1,338 @@
+"use client"
+
+import { useState } from "react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Slider } from "@/components/ui/slider"
+import { TutorCard } from "./tutor-card"
+import { Search, Filter, SlidersHorizontal } from "lucide-react"
+
+// Mock data
+const mockTutors = [
+  {
+    id: 1,
+    name: "Prof. Jean Martin",
+    avatar: "/placeholder.svg?height=80&width=80",
+    subjects: ["Mathématiques", "Physique"],
+    level: ["Lycée", "Université"],
+    rating: 4.9,
+    reviewCount: 127,
+    hourlyRate: 35,
+    location: "Paris",
+    languages: ["Français", "Anglais"],
+    experience: 8,
+    description:
+      "Professeur agrégé de mathématiques avec 8 ans d'expérience. Spécialisé dans la préparation au baccalauréat et aux concours.",
+    availability: "Disponible",
+    verified: true,
+    responseTime: "< 1h",
+    completedLessons: 450,
+  },
+  {
+    id: 2,
+    name: "Dr. Marie Leroy",
+    avatar: "/placeholder.svg?height=80&width=80",
+    subjects: ["Physique", "Chimie"],
+    level: ["Collège", "Lycée"],
+    rating: 4.8,
+    reviewCount: 89,
+    hourlyRate: 40,
+    location: "Lyon",
+    languages: ["Français"],
+    experience: 12,
+    description:
+      "Docteur en physique, enseignante passionnée. Méthodes pédagogiques innovantes pour rendre les sciences accessibles.",
+    availability: "Disponible",
+    verified: true,
+    responseTime: "< 2h",
+    completedLessons: 320,
+  },
+  {
+    id: 3,
+    name: "Mme. Sophie Rousseau",
+    avatar: "/placeholder.svg?height=80&width=80",
+    subjects: ["Français", "Littérature"],
+    level: ["Collège", "Lycée"],
+    rating: 4.7,
+    reviewCount: 156,
+    hourlyRate: 30,
+    location: "Marseille",
+    languages: ["Français", "Espagnol"],
+    experience: 6,
+    description:
+      "Professeure de français certifiée. Spécialisée dans l'analyse littéraire et la préparation aux examens.",
+    availability: "Occupé",
+    verified: true,
+    responseTime: "< 3h",
+    completedLessons: 280,
+  },
+  {
+    id: 4,
+    name: "M. Pierre Dubois",
+    avatar: "/placeholder.svg?height=80&width=80",
+    subjects: ["Histoire", "Géographie"],
+    level: ["Collège", "Lycée"],
+    rating: 4.6,
+    reviewCount: 73,
+    hourlyRate: 28,
+    location: "Toulouse",
+    languages: ["Français", "Anglais"],
+    experience: 5,
+    description: "Enseignant d'histoire-géographie passionné. Approche interactive et mémorisation facilitée.",
+    availability: "Disponible",
+    verified: false,
+    responseTime: "< 4h",
+    completedLessons: 190,
+  },
+]
+
+export function TutorSearch() {
+  const [searchQuery, setSearchQuery] = useState("")
+  const [selectedSubject, setSelectedSubject] = useState("all")
+  const [selectedLevel, setSelectedLevel] = useState("all")
+  const [priceRange, setPriceRange] = useState([0, 100])
+  const [selectedLanguages, setSelectedLanguages] = useState<string[]>([])
+  const [onlyAvailable, setOnlyAvailable] = useState(false)
+  const [onlyVerified, setOnlyVerified] = useState(false)
+  const [sortBy, setSortBy] = useState("rating")
+  const [showFilters, setShowFilters] = useState(false)
+
+  const subjects = ["Mathématiques", "Physique", "Chimie", "Français", "Histoire", "Géographie", "Anglais", "Espagnol"]
+  const levels = ["Primaire", "Collège", "Lycée", "Université"]
+  const languages = ["Français", "Anglais", "Espagnol", "Allemand", "Italien"]
+
+  const filteredTutors = mockTutors.filter((tutor) => {
+    const matchesSearch =
+      tutor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      tutor.subjects.some((subject) => subject.toLowerCase().includes(searchQuery.toLowerCase()))
+
+    const matchesSubject = selectedSubject === "all" || tutor.subjects.includes(selectedSubject)
+    const matchesLevel = selectedLevel === "all" || tutor.level.includes(selectedLevel)
+    const matchesPrice = tutor.hourlyRate >= priceRange[0] && tutor.hourlyRate <= priceRange[1]
+    const matchesLanguage =
+      selectedLanguages.length === 0 || selectedLanguages.some((lang) => tutor.languages.includes(lang))
+    const matchesAvailability = !onlyAvailable || tutor.availability === "Disponible"
+    const matchesVerified = !onlyVerified || tutor.verified
+
+    return (
+      matchesSearch &&
+      matchesSubject &&
+      matchesLevel &&
+      matchesPrice &&
+      matchesLanguage &&
+      matchesAvailability &&
+      matchesVerified
+    )
+  })
+
+  const sortedTutors = [...filteredTutors].sort((a, b) => {
+    switch (sortBy) {
+      case "rating":
+        return b.rating - a.rating
+      case "price-low":
+        return a.hourlyRate - b.hourlyRate
+      case "price-high":
+        return b.hourlyRate - a.hourlyRate
+      case "experience":
+        return b.experience - a.experience
+      default:
+        return 0
+    }
+  })
+
+  const handleLanguageChange = (language: string, checked: boolean) => {
+    if (checked) {
+      setSelectedLanguages([...selectedLanguages, language])
+    } else {
+      setSelectedLanguages(selectedLanguages.filter((lang) => lang !== language))
+    }
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Search Bar */}
+      <Card>
+        <CardContent className="p-6">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1">
+              <div className="relative">
+                <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Rechercher par nom ou matière..."
+                  className="pl-10"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+            </div>
+            <Select value={selectedSubject} onValueChange={setSelectedSubject}>
+              <SelectTrigger className="w-full md:w-48">
+                <SelectValue placeholder="Matière" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Toutes les matières</SelectItem>
+                {subjects.map((subject) => (
+                  <SelectItem key={subject} value={subject}>
+                    {subject}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select value={selectedLevel} onValueChange={setSelectedLevel}>
+              <SelectTrigger className="w-full md:w-48">
+                <SelectValue placeholder="Niveau" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Tous les niveaux</SelectItem>
+                {levels.map((level) => (
+                  <SelectItem key={level} value={level}>
+                    {level}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Button variant="outline" onClick={() => setShowFilters(!showFilters)} className="w-full md:w-auto">
+              <SlidersHorizontal className="h-4 w-4 mr-2" />
+              Filtres
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Advanced Filters */}
+      {showFilters && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Filter className="h-5 w-5" />
+              Filtres avancés
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Price Range */}
+              <div className="space-y-3">
+                <Label>Prix par heure</Label>
+                <div className="px-3">
+                  <Slider
+                    value={priceRange}
+                    onValueChange={setPriceRange}
+                    max={100}
+                    min={0}
+                    step={5}
+                    className="w-full"
+                  />
+                  <div className="flex justify-between text-sm text-muted-foreground mt-1">
+                    <span>{priceRange[0]}€</span>
+                    <span>{priceRange[1]}€</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Languages */}
+              <div className="space-y-3">
+                <Label>Langues parlées</Label>
+                <div className="space-y-2">
+                  {languages.map((language) => (
+                    <div key={language} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={language}
+                        checked={selectedLanguages.includes(language)}
+                        onCheckedChange={(checked) => handleLanguageChange(language, checked as boolean)}
+                      />
+                      <Label htmlFor={language} className="text-sm">
+                        {language}
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Availability & Verification */}
+              <div className="space-y-3">
+                <Label>Options</Label>
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <Checkbox id="available" checked={onlyAvailable} onCheckedChange={setOnlyAvailable} />
+                    <Label htmlFor="available" className="text-sm">
+                      Disponible maintenant
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Checkbox id="verified" checked={onlyVerified} onCheckedChange={setOnlyVerified} />
+                    <Label htmlFor="verified" className="text-sm">
+                      Profil vérifié uniquement
+                    </Label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Results Header */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h2 className="text-2xl font-bold">{sortedTutors.length} tuteurs trouvés</h2>
+          <p className="text-muted-foreground">
+            {selectedSubject !== "all" && `Matière: ${selectedSubject}`}
+            {selectedLevel !== "all" && ` • Niveau: ${selectedLevel}`}
+          </p>
+        </div>
+        <Select value={sortBy} onValueChange={setSortBy}>
+          <SelectTrigger className="w-full md:w-48">
+            <SelectValue placeholder="Trier par" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="rating">Mieux notés</SelectItem>
+            <SelectItem value="price-low">Prix croissant</SelectItem>
+            <SelectItem value="price-high">Prix décroissant</SelectItem>
+            <SelectItem value="experience">Plus expérimentés</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Tutors Grid */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {sortedTutors.map((tutor) => (
+          <TutorCard key={tutor.id} tutor={tutor} />
+        ))}
+      </div>
+
+      {sortedTutors.length === 0 && (
+        <Card>
+          <CardContent className="text-center py-12">
+            <div className="space-y-4">
+              <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto">
+                <Search className="h-8 w-8 text-muted-foreground" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg">Aucun tuteur trouvé</h3>
+                <p className="text-muted-foreground">Essayez de modifier vos critères de recherche</p>
+              </div>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setSearchQuery("")
+                  setSelectedSubject("all")
+                  setSelectedLevel("all")
+                  setPriceRange([0, 100])
+                  setSelectedLanguages([])
+                  setOnlyAvailable(false)
+                  setOnlyVerified(false)
+                }}
+              >
+                Réinitialiser les filtres
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  )
+}

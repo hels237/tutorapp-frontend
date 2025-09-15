@@ -1,0 +1,54 @@
+/* Typography avec Inter - Style OpenClassrooms */
+
+/* Import Inter depuis Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* Classes utilitaires pour les titres */
+.heading-hero {
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.heading-xl {
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.heading-lg {
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+.heading-md {
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+.heading-sm {
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  font-weight: 500;
+}
+
+/* Override pour tous les titres HTML */
+h1 {
+  @apply heading-hero;
+}
+
+h2 {
+  @apply heading-xl;
+}
+
+h3 {
+  @apply heading-lg;
+}
+
+h4 {
+  @apply heading-md;
+}
+
+h5, h6 {
+  @apply heading-sm;
+}
