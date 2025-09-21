@@ -1,3 +1,5 @@
+"use client"
+
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
@@ -6,88 +8,122 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Globe, MessageCircle, BookOpen, Headphones, PenTool, Users, ArrowRight } from "lucide-react"
+import { useI18n } from "@/contexts/i18n-context"
 
-export const metadata: Metadata = {
-  title: "Langues - TutorApp",
-  description:
-    "Apprenez les langues avec nos tuteurs natifs et qualifiés. Français, anglais, espagnol, allemand et plus encore.",
-}
-
-const languages = [
-  {
-    name: "Français",
-    description: "Grammaire, orthographe, littérature, expression",
-    icon: BookOpen,
-    tutorCount: 89,
-    levels: ["Primaire", "Collège", "Lycée", "Adulte"],
-    flag: "🇫🇷",
-  },
-  {
-    name: "Anglais",
-    description: "Conversation, grammaire, préparation examens",
-    icon: MessageCircle,
-    tutorCount: 156,
-    levels: ["Primaire", "Collège", "Lycée", "Adulte"],
-    flag: "🇬🇧",
-  },
-  {
-    name: "Espagnol",
-    description: "Expression orale, grammaire, culture hispanique",
-    icon: Users,
-    tutorCount: 67,
-    levels: ["Collège", "Lycée", "Adulte"],
-    flag: "🇪🇸",
-  },
-  {
-    name: "Allemand",
-    description: "Grammaire, vocabulaire, culture allemande",
-    icon: PenTool,
-    tutorCount: 43,
-    levels: ["Collège", "Lycée", "Adulte"],
-    flag: "🇩🇪",
-  },
-  {
-    name: "Italien",
-    description: "Conversation, grammaire, culture italienne",
-    icon: Headphones,
-    tutorCount: 32,
-    levels: ["Lycée", "Adulte"],
-    flag: "🇮🇹",
-  },
-  {
-    name: "Chinois",
-    description: "Mandarin, caractères, culture chinoise",
-    icon: Globe,
-    tutorCount: 28,
-    levels: ["Débutant", "Intermédiaire"],
-    flag: "🇨🇳",
-  },
-]
-
-const learningMethods = [
-  {
-    title: "Conversation Interactive",
-    description: "Pratiquez avec des locuteurs natifs",
-    icon: MessageCircle,
-  },
-  {
-    title: "Grammaire Structurée",
-    description: "Maîtrisez les règles fondamentales",
-    icon: BookOpen,
-  },
-  {
-    title: "Immersion Culturelle",
-    description: "Découvrez la culture et les traditions",
-    icon: Globe,
-  },
-  {
-    title: "Préparation aux Examens",
-    description: "TOEFL, DELE, DELF et autres certifications",
-    icon: PenTool,
-  },
-]
+// Metadata sera gérée dynamiquement avec useI18n
 
 export default function LanguagesPage() {
+  const { t } = useI18n()
+  
+  // Données normalisées avec traductions dynamiques
+  const languages = [
+    {
+      key: "french",
+      name: t("subjects.languages.langs.french.name"),
+      description: t("subjects.languages.langs.french.description"),
+      icon: BookOpen,
+      tutorCount: 89,
+      levels: [
+        t("subjects.languages.levels.primary"),
+        t("subjects.languages.levels.middle"),
+        t("subjects.languages.levels.high"),
+        t("subjects.languages.levels.adult")
+      ],
+      flag: "🇫🇷",
+    },
+    {
+      key: "english",
+      name: t("subjects.languages.langs.english.name"),
+      description: t("subjects.languages.langs.english.description"),
+      icon: MessageCircle,
+      tutorCount: 156,
+      levels: [
+        t("subjects.languages.levels.primary"),
+        t("subjects.languages.levels.middle"),
+        t("subjects.languages.levels.high"),
+        t("subjects.languages.levels.adult")
+      ],
+      flag: "🇬🇧",
+    },
+    {
+      key: "spanish",
+      name: t("subjects.languages.langs.spanish.name"),
+      description: t("subjects.languages.langs.spanish.description"),
+      icon: Users,
+      tutorCount: 67,
+      levels: [
+        t("subjects.languages.levels.middle"),
+        t("subjects.languages.levels.high"),
+        t("subjects.languages.levels.adult")
+      ],
+      flag: "🇪🇸",
+    },
+    {
+      key: "german",
+      name: t("subjects.languages.langs.german.name"),
+      description: t("subjects.languages.langs.german.description"),
+      icon: PenTool,
+      tutorCount: 43,
+      levels: [
+        t("subjects.languages.levels.middle"),
+        t("subjects.languages.levels.high"),
+        t("subjects.languages.levels.adult")
+      ],
+      flag: "🇩🇪",
+    },
+    {
+      key: "italian",
+      name: t("subjects.languages.langs.italian.name"),
+      description: t("subjects.languages.langs.italian.description"),
+      icon: Headphones,
+      tutorCount: 32,
+      levels: [
+        t("subjects.languages.levels.high"),
+        t("subjects.languages.levels.adult")
+      ],
+      flag: "🇮🇹",
+    },
+    {
+      key: "chinese",
+      name: t("subjects.languages.langs.chinese.name"),
+      description: t("subjects.languages.langs.chinese.description"),
+      icon: Globe,
+      tutorCount: 28,
+      levels: [
+        t("subjects.languages.levels.beginner"),
+        t("subjects.languages.levels.intermediate")
+      ],
+      flag: "🇨🇳",
+    },
+  ]
+
+  const learningMethods = [
+    {
+      key: "conversation",
+      title: t("subjects.languages.methods.conversation.title"),
+      description: t("subjects.languages.methods.conversation.description"),
+      icon: MessageCircle,
+    },
+    {
+      key: "grammar",
+      title: t("subjects.languages.methods.grammar.title"),
+      description: t("subjects.languages.methods.grammar.description"),
+      icon: BookOpen,
+    },
+    {
+      key: "immersion",
+      title: t("subjects.languages.methods.immersion.title"),
+      description: t("subjects.languages.methods.immersion.description"),
+      icon: Globe,
+    },
+    {
+      key: "exams",
+      title: t("subjects.languages.methods.exams.title"),
+      description: t("subjects.languages.methods.exams.description"),
+      icon: PenTool,
+    },
+  ]
+  
   return (
     <div className="min-h-screen">
       <Header />
@@ -99,15 +135,14 @@ export default function LanguagesPage() {
             <div className="inline-flex items-center justify-center p-4 bg-purple-500 text-white rounded-full mb-4">
               <Globe className="h-8 w-8" />
             </div>
-            <h1 className="heading-hero text-4xl md:text-6xl text-balance">Langues</h1>
+            <h1 className="text-4xl md:text-6xl font-bold text-balance">{t('subjects.languages.name')}</h1>
             <p className="text-xl text-muted-foreground content-width-md mx-auto">
-              Ouvrez-vous au monde avec nos tuteurs natifs et passionnés. Apprenez une nouvelle langue ou perfectionnez
-              vos compétences.
+              {t('subjects.languages.hero.subtitle')}
             </p>
             <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
-              <Badge variant="secondary">312 tuteurs</Badge>
-              <Badge variant="secondary">6 langues</Badge>
-              <Badge variant="secondary">À partir de 20€/h</Badge>
+              <Badge variant="secondary">{t('subjects.languages.tutorCount')}</Badge>
+              <Badge variant="secondary">{t('subjects.languages.languageCount')}</Badge>
+              <Badge variant="secondary">{t('subjects.languages.priceFrom')}</Badge>
             </div>
           </div>
         </div>
@@ -117,9 +152,9 @@ export default function LanguagesPage() {
       <section className="section-padding">
         <div className="container safe-area">
           <div className="text-center mb-12">
-            <h2 className="heading-xl text-3xl md:text-4xl mb-4">Langues Disponibles</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('subjects.languages.availableTitle')}</h2>
             <p className="text-lg text-muted-foreground content-width-md mx-auto">
-              Choisissez parmi notre sélection de langues enseignées par des experts
+              {t('subjects.languages.availableSubtitle')}
             </p>
           </div>
 
@@ -136,7 +171,7 @@ export default function LanguagesPage() {
                           <IconComponent className="h-5 w-5" />
                         </div>
                       </div>
-                      <Badge variant="outline">{language.tutorCount} tuteurs</Badge>
+                      <Badge variant="outline">{language.tutorCount} {t('subjects.languages.tutors')}</Badge>
                     </div>
                     <CardTitle className="text-xl">{language.name}</CardTitle>
                     <CardDescription>{language.description}</CardDescription>
@@ -144,7 +179,7 @@ export default function LanguagesPage() {
                   <CardContent>
                     <div className="space-y-3">
                       <div>
-                        <p className="text-sm font-medium mb-2">Niveaux :</p>
+                        <p className="text-sm font-medium mb-2">{t('subjects.languages.levels')}</p>
                         <div className="flex flex-wrap gap-1">
                           {language.levels.map((level) => (
                             <Badge key={level} variant="secondary" className="text-xs">
@@ -153,7 +188,7 @@ export default function LanguagesPage() {
                           ))}
                         </div>
                       </div>
-                      <Button className="w-full">Voir les tuteurs</Button>
+                      <Button className="w-full">{t('subjects.languages.viewTutors')}</Button>
                     </div>
                   </CardContent>
                 </Card>
@@ -167,9 +202,9 @@ export default function LanguagesPage() {
       <section className="section-padding bg-muted/50">
         <div className="container safe-area">
           <div className="text-center mb-12">
-            <h2 className="heading-xl text-3xl md:text-4xl mb-4">Méthodes d'Apprentissage</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('subjects.languages.methodsTitle')}</h2>
             <p className="text-lg text-muted-foreground">
-              Nos tuteurs utilisent des approches variées pour s'adapter à votre style d'apprentissage
+              {t('subjects.languages.methodsSubtitle')}
             </p>
           </div>
 
@@ -196,19 +231,19 @@ export default function LanguagesPage() {
       <section className="section-padding">
         <div className="container safe-area">
           <div className="text-center space-y-6">
-            <h2 className="heading-xl text-3xl md:text-4xl">Commencez Votre Apprentissage Aujourd'hui</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">{t('subjects.languages.ctaTitle')}</h2>
             <p className="text-lg text-muted-foreground content-width-md mx-auto">
-              Rejoignez des milliers d'étudiants qui ont déjà amélioré leurs compétences linguistiques
+              {t('subjects.languages.ctaSubtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild>
                 <Link href="/tutors?subject=languages">
-                  Trouver un Tuteur
+                  {t('subjects.languages.findTutor')}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="/register">Cours d'Essai Gratuit</Link>
+                <Link href="/register">{t('subjects.languages.freeTrial')}</Link>
               </Button>
             </div>
           </div>

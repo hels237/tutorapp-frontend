@@ -1,3 +1,5 @@
+"use client"
+
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
@@ -6,58 +8,86 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Atom, Microscope, Zap, Leaf, Globe2, TestTube, ArrowRight } from "lucide-react"
+import { useI18n } from "@/contexts/i18n-context"
 
-export const metadata: Metadata = {
-  title: "Sciences - TutorApp",
-  description: "Découvrez nos tuteurs en sciences : physique, chimie, biologie, sciences de la terre et plus encore.",
-}
-
-const scienceTopics = [
-  {
-    name: "Physique",
-    description: "Mécanique, thermodynamique, électricité, optique",
-    icon: Zap,
-    tutorCount: 67,
-    levels: ["Collège", "Lycée", "Supérieur"],
-  },
-  {
-    name: "Chimie",
-    description: "Chimie générale, organique, analytique",
-    icon: TestTube,
-    tutorCount: 54,
-    levels: ["Collège", "Lycée", "Supérieur"],
-  },
-  {
-    name: "Biologie",
-    description: "Biologie cellulaire, génétique, écologie",
-    icon: Leaf,
-    tutorCount: 43,
-    levels: ["Collège", "Lycée", "Supérieur"],
-  },
-  {
-    name: "Sciences de la Terre",
-    description: "Géologie, climatologie, environnement",
-    icon: Globe2,
-    tutorCount: 32,
-    levels: ["Collège", "Lycée"],
-  },
-  {
-    name: "Sciences Expérimentales",
-    description: "Méthodes scientifiques, expérimentation",
-    icon: Microscope,
-    tutorCount: 28,
-    levels: ["Lycée", "Supérieur"],
-  },
-  {
-    name: "Physique-Chimie",
-    description: "Programme intégré collège et lycée",
-    icon: Atom,
-    tutorCount: 89,
-    levels: ["Collège", "Lycée"],
-  },
-]
+// Metadata sera gérée dynamiquement avec useI18n
 
 export default function SciencesPage() {
+  const { t } = useI18n()
+  
+  // Données normalisées avec traductions dynamiques
+  const scienceTopics = [
+    {
+      key: "physics",
+      name: t("subjects.sciences.topics.physics.name"),
+      description: t("subjects.sciences.topics.physics.description"),
+      icon: Zap,
+      tutorCount: 67,
+      levels: [
+        t("subjects.sciences.levels.middle"),
+        t("subjects.sciences.levels.high"),
+        t("subjects.sciences.levels.higher")
+      ],
+    },
+    {
+      key: "chemistry",
+      name: t("subjects.sciences.topics.chemistry.name"),
+      description: t("subjects.sciences.topics.chemistry.description"),
+      icon: TestTube,
+      tutorCount: 54,
+      levels: [
+        t("subjects.sciences.levels.middle"),
+        t("subjects.sciences.levels.high"),
+        t("subjects.sciences.levels.higher")
+      ],
+    },
+    {
+      key: "biology",
+      name: t("subjects.sciences.topics.biology.name"),
+      description: t("subjects.sciences.topics.biology.description"),
+      icon: Leaf,
+      tutorCount: 43,
+      levels: [
+        t("subjects.sciences.levels.middle"),
+        t("subjects.sciences.levels.high"),
+        t("subjects.sciences.levels.higher")
+      ],
+    },
+    {
+      key: "earth",
+      name: t("subjects.sciences.topics.earth.name"),
+      description: t("subjects.sciences.topics.earth.description"),
+      icon: Globe2,
+      tutorCount: 32,
+      levels: [
+        t("subjects.sciences.levels.middle"),
+        t("subjects.sciences.levels.high")
+      ],
+    },
+    {
+      key: "experimental",
+      name: t("subjects.sciences.topics.experimental.name"),
+      description: t("subjects.sciences.topics.experimental.description"),
+      icon: Microscope,
+      tutorCount: 28,
+      levels: [
+        t("subjects.sciences.levels.high"),
+        t("subjects.sciences.levels.higher")
+      ],
+    },
+    {
+      key: "physicsChemistry",
+      name: t("subjects.sciences.topics.physicsChemistry.name"),
+      description: t("subjects.sciences.topics.physicsChemistry.description"),
+      icon: Atom,
+      tutorCount: 89,
+      levels: [
+        t("subjects.sciences.levels.middle"),
+        t("subjects.sciences.levels.high")
+      ],
+    },
+  ]
+  
   return (
     <div className="min-h-screen">
       <Header />
@@ -69,15 +99,14 @@ export default function SciencesPage() {
             <div className="inline-flex items-center justify-center p-4 bg-green-500 text-white rounded-full mb-4">
               <Atom className="h-8 w-8" />
             </div>
-            <h1 className="heading-hero text-4xl md:text-6xl text-balance">Sciences</h1>
+            <h1 className="text-4xl md:text-6xl font-bold text-balance">{t('subjects.sciences.name')}</h1>
             <p className="text-xl text-muted-foreground content-width-md mx-auto">
-              Explorez le monde des sciences avec nos tuteurs passionnés. Physique, chimie, biologie et sciences de la
-              terre.
+              {t('subjects.sciences.hero.subtitle')}
             </p>
             <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
-              <Badge variant="secondary">189 tuteurs</Badge>
-              <Badge variant="secondary">Collège à Supérieur</Badge>
-              <Badge variant="secondary">À partir de 28€/h</Badge>
+              <Badge variant="secondary">{t('subjects.sciences.tutorCount')}</Badge>
+              <Badge variant="secondary">{t('subjects.sciences.allLevels')}</Badge>
+              <Badge variant="secondary">{t('subjects.sciences.priceFrom')}</Badge>
             </div>
           </div>
         </div>
@@ -87,9 +116,9 @@ export default function SciencesPage() {
       <section className="section-padding">
         <div className="container safe-area">
           <div className="text-center mb-12">
-            <h2 className="heading-xl text-3xl md:text-4xl mb-4">Disciplines Scientifiques</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('subjects.sciences.expertiseTitle')}</h2>
             <p className="text-lg text-muted-foreground content-width-md mx-auto">
-              De la théorie à la pratique, maîtrisez toutes les sciences
+              {t('subjects.sciences.expertiseSubtitle')}
             </p>
           </div>
 
@@ -103,7 +132,7 @@ export default function SciencesPage() {
                       <div className="p-2 bg-green-100 text-green-600 rounded-lg">
                         <IconComponent className="h-5 w-5" />
                       </div>
-                      <Badge variant="outline">{topic.tutorCount} tuteurs</Badge>
+                      <Badge variant="outline">{topic.tutorCount} {t('subjects.sciences.tutors')}</Badge>
                     </div>
                     <CardTitle className="text-xl">{topic.name}</CardTitle>
                     <CardDescription>{topic.description}</CardDescription>
@@ -111,7 +140,7 @@ export default function SciencesPage() {
                   <CardContent>
                     <div className="space-y-3">
                       <div>
-                        <p className="text-sm font-medium mb-2">Niveaux :</p>
+                        <p className="text-sm font-medium mb-2">{t('subjects.sciences.levels')}</p>
                         <div className="flex flex-wrap gap-1">
                           {topic.levels.map((level) => (
                             <Badge key={level} variant="secondary" className="text-xs">
@@ -133,13 +162,13 @@ export default function SciencesPage() {
       <section className="section-padding bg-muted/50">
         <div className="container safe-area">
           <div className="text-center space-y-6">
-            <h2 className="heading-xl text-3xl md:text-4xl">Prêt à Explorer les Sciences ?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">{t('subjects.sciences.ctaTitle')}</h2>
             <p className="text-lg text-muted-foreground content-width-md mx-auto">
-              Trouvez le tuteur parfait pour vous accompagner dans votre parcours scientifique
+              {t('subjects.sciences.ctaSubtitle')}
             </p>
             <Button size="lg" asChild>
               <Link href="/tutors?subject=sciences">
-                Trouver un Tuteur en Sciences
+                {t('subjects.sciences.findTutor')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>

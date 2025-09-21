@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox"
 import { Slider } from "@/components/ui/slider"
 import { TutorCard } from "./tutor-card"
-import { Search, Filter, SlidersHorizontal } from "lucide-react"
+import { Search, Filter, SlidersHorizontal, Euro, Languages, CheckCircle, Clock } from "lucide-react"
 import { useI18n } from "@/contexts/i18n-context"
 
 // Mock data
@@ -103,14 +103,42 @@ export function TutorSearch() {
   const [sortBy, setSortBy] = useState("rating")
   const [showFilters, setShowFilters] = useState(false)
 
-  const subjects = ["Mathématiques", "Physique", "Chimie", "Français", "Histoire", "Géographie", "Anglais", "Espagnol"]
-  const levels = ["Primaire", "Collège", "Lycée", "Université"]
-  const languages = ["Français", "Anglais", "Espagnol", "Allemand", "Italien"]
+  // Listes avec clés et traductions dynamiques
+  const subjects = [
+    { key: "mathematics", label: t("tutors.subjects.mathematics") },
+    { key: "physics", label: t("tutors.subjects.physics") },
+    { key: "chemistry", label: t("tutors.subjects.chemistry") },
+    { key: "french", label: t("tutors.subjects.french") },
+    { key: "history", label: t("tutors.subjects.history") },
+    { key: "geography", label: t("tutors.subjects.geography") },
+    { key: "english", label: t("tutors.subjects.english") },
+    { key: "spanish", label: t("tutors.subjects.spanish") }
+  ]
+  
+  const levels = [
+    { key: "primary", label: t("tutors.levels.primary") },
+    { key: "middle", label: t("tutors.levels.middle") },
+    { key: "high", label: t("tutors.levels.high") },
+    { key: "university", label: t("tutors.levels.university") }
+  ]
+  
+  const languages = [
+    { key: "french", label: t("tutors.languages.french") },
+    { key: "english", label: t("tutors.languages.english") },
+    { key: "spanish", label: t("tutors.languages.spanish") },
+    { key: "german", label: t("tutors.languages.german") },
+    { key: "italian", label: t("tutors.languages.italian") }
+  ]
 
   const filteredTutors = mockTutors.filter((tutor) => {
     const matchesSearch =
       tutor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      tutor.subjects.some((subject) => subject.toLowerCase().includes(searchQuery.toLowerCase()))
+      tutor.subjects.some((subject) => {
+        // Recherche dans les traductions des matières
+        const subjectObj = subjects.find(s => s.label.toLowerCase() === subject.toLowerCase());
+        return subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
+               (subjectObj && subjectObj.label.toLowerCase().includes(searchQuery.toLowerCase()));
+      })
 
     const matchesSubject = selectedSubject === "all" || tutor.subjects.includes(selectedSubject)
     const matchesLevel = selectedLevel === "all" || tutor.level.includes(selectedLevel)
@@ -178,8 +206,8 @@ export function TutorSearch() {
               <SelectContent>
                 <SelectItem value="all">{t('tutors.allSubjects')}</SelectItem>
                 {subjects.map((subject) => (
-                  <SelectItem key={subject} value={subject}>
-                    {subject}
+                  <SelectItem key={subject.key} value={subject.key}>
+                    {subject.label}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -191,15 +219,15 @@ export function TutorSearch() {
               <SelectContent>
                 <SelectItem value="all">{t('tutors.allLevels')}</SelectItem>
                 {levels.map((level) => (
-                  <SelectItem key={level} value={level}>
-                    {level}
+                  <SelectItem key={level.key} value={level.key}>
+                    {level.label}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
             <Button variant="outline" onClick={() => setShowFilters(!showFilters)} className="w-full md:w-auto">
               <SlidersHorizontal className="h-4 w-4 mr-2" />
-              Filtres
+              {t("tutors.search.filters")}
             </Button>
           </div>
         </CardContent>
@@ -211,15 +239,18 @@ export function TutorSearch() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Filter className="h-5 w-5" />
-              Filtres avancés
+              {t("tutors.search.advancedFilters")}
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <CardContent className="space-y-8">
+            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
               {/* Price Range */}
-              <div className="space-y-3">
-                <Label>Prix par heure</Label>
-                <div className="px-3">
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <Euro className="h-4 w-4 text-primary" />
+                  <Label className="text-sm font-medium">{t("tutors.search.pricePerHour")}</Label>
+                </div>
+                <div className="bg-muted/30 rounded-lg p-4 space-y-3">
                   <Slider
                     value={priceRange}
                     onValueChange={setPriceRange}
@@ -228,51 +259,137 @@ export function TutorSearch() {
                     step={5}
                     className="w-full"
                   />
-                  <div className="flex justify-between text-sm text-muted-foreground mt-1">
-                    <span>{priceRange[0]}€</span>
-                    <span>{priceRange[1]}€</span>
+                  <div className="flex justify-between items-center">
+                    <div className="bg-background px-3 py-1 rounded-md border text-sm font-medium">
+                      {priceRange[0]}€
+                    </div>
+                    <span className="text-xs text-muted-foreground">{t("tutors.search.priceRange")}</span>
+                    <div className="bg-background px-3 py-1 rounded-md border text-sm font-medium">
+                      {priceRange[1]}€
+                    </div>
                   </div>
                 </div>
               </div>
 
               {/* Languages */}
-              <div className="space-y-3">
-                <Label>Langues parlées</Label>
-                <div className="space-y-2">
-                  {languages.map((language) => (
-                    <div key={language} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={language}
-                        checked={selectedLanguages.includes(language)}
-                        onCheckedChange={(checked) => handleLanguageChange(language, checked as boolean)}
-                      />
-                      <Label htmlFor={language} className="text-sm">
-                        {language}
-                      </Label>
-                    </div>
-                  ))}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <Languages className="h-4 w-4 text-primary" />
+                  <Label className="text-sm font-medium">{t("tutors.search.spokenLanguages")}</Label>
+                </div>
+                <div className="bg-muted/30 rounded-lg p-4">
+                  <div className="grid grid-cols-1 gap-3">
+                    {languages.map((language) => (
+                      <div key={language.key} className="flex items-center space-x-3 p-2 rounded-md hover:bg-background/50 transition-colors">
+                        <Checkbox
+                          id={language.key}
+                          checked={selectedLanguages.includes(language.key)}
+                          onCheckedChange={(checked) => handleLanguageChange(language.key, checked as boolean)}
+                          className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                        />
+                        <Label htmlFor={language.key} className="text-sm font-medium cursor-pointer flex-1">
+                          {language.label}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
               {/* Availability & Verification */}
-              <div className="space-y-3">
-                <Label>Options</Label>
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="available" checked={onlyAvailable} onCheckedChange={setOnlyAvailable} />
-                    <Label htmlFor="available" className="text-sm">
-                      Disponible maintenant
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="verified" checked={onlyVerified} onCheckedChange={setOnlyVerified} />
-                    <Label htmlFor="verified" className="text-sm">
-                      Profil vérifié uniquement
-                    </Label>
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-primary" />
+                  <Label className="text-sm font-medium">{t("tutors.search.options")}</Label>
+                </div>
+                <div className="bg-muted/30 rounded-lg p-4">
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-3 p-3 rounded-md border bg-background/50 hover:bg-background transition-colors">
+                      <Checkbox 
+                        id="available" 
+                        checked={onlyAvailable} 
+                        onCheckedChange={setOnlyAvailable}
+                        className="data-[state=checked]:bg-green-500 data-[state=checked]:border-green-500"
+                      />
+                      <div className="flex items-center gap-2 flex-1">
+                        <Clock className="h-4 w-4 text-green-600" />
+                        <Label htmlFor="available" className="text-sm font-medium cursor-pointer">
+                          {t("tutors.search.availableNow")}
+                        </Label>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3 p-3 rounded-md border bg-background/50 hover:bg-background transition-colors">
+                      <Checkbox 
+                        id="verified" 
+                        checked={onlyVerified} 
+                        onCheckedChange={setOnlyVerified}
+                        className="data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
+                      />
+                      <div className="flex items-center gap-2 flex-1">
+                        <CheckCircle className="h-4 w-4 text-blue-600" />
+                        <Label htmlFor="verified" className="text-sm font-medium cursor-pointer">
+                          {t("tutors.search.verifiedOnly")}
+                        </Label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+
+            {/* Active Filters Summary */}
+            {(selectedLanguages.length > 0 || onlyAvailable || onlyVerified || priceRange[0] > 0 || priceRange[1] < 100) && (
+              <div className="border-t pt-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Filter className="h-4 w-4 text-muted-foreground" />
+                    <span className="text-sm font-medium text-muted-foreground">{t("tutors.search.activeFilters")}</span>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      setSelectedLanguages([])
+                      setOnlyAvailable(false)
+                      setOnlyVerified(false)
+                      setPriceRange([0, 100])
+                    }}
+                    className="text-xs"
+                  >
+                    {t("tutors.search.clearAll")}
+                  </Button>
+                </div>
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {selectedLanguages.map((langKey) => {
+                    const language = languages.find(l => l.key === langKey);
+                    return (
+                      <div key={langKey} className="bg-primary/10 text-primary px-2 py-1 rounded-md text-xs font-medium flex items-center gap-1">
+                        <Languages className="h-3 w-3" />
+                        {language?.label || langKey}
+                      </div>
+                    );
+                  })}
+                  {onlyAvailable && (
+                    <div className="bg-green-100 text-green-700 px-2 py-1 rounded-md text-xs font-medium flex items-center gap-1">
+                      <Clock className="h-3 w-3" />
+                      {t("tutors.card.available")}
+                    </div>
+                  )}
+                  {onlyVerified && (
+                    <div className="bg-blue-100 text-blue-700 px-2 py-1 rounded-md text-xs font-medium flex items-center gap-1">
+                      <CheckCircle className="h-3 w-3" />
+                      {t("tutors.card.verified")}
+                    </div>
+                  )}
+                  {(priceRange[0] > 0 || priceRange[1] < 100) && (
+                    <div className="bg-orange-100 text-orange-700 px-2 py-1 rounded-md text-xs font-medium flex items-center gap-1">
+                      <Euro className="h-3 w-3" />
+                      {priceRange[0]}€ - {priceRange[1]}€
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
       )}
@@ -314,8 +431,8 @@ export function TutorSearch() {
                 <Search className="h-8 w-8 text-muted-foreground" />
               </div>
               <div>
-                <h3 className="font-semibold text-lg">Aucun tuteur trouvé</h3>
-                <p className="text-muted-foreground">Essayez de modifier vos critères de recherche</p>
+                <h3 className="font-semibold text-lg">{t("tutors.search.noTutorsFound")}</h3>
+                <p className="text-muted-foreground">{t("tutors.search.modifySearch")}</p>
               </div>
               <Button
                 variant="outline"
@@ -329,7 +446,7 @@ export function TutorSearch() {
                   setOnlyVerified(false)
                 }}
               >
-                Réinitialiser les filtres
+                {t("tutors.search.resetFilters")}
               </Button>
             </div>
           </CardContent>

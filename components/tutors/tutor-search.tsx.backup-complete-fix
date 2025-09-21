@@ -103,31 +103,9 @@ export function TutorSearch() {
   const [sortBy, setSortBy] = useState("rating")
   const [showFilters, setShowFilters] = useState(false)
 
-    // Données normalisées avec traductions dynamiques
-  const subjects = [
-    { key: "mathematics", label: t("tutors.subjects.mathematics") },
-    { key: "physics", label: t("tutors.subjects.physics") },
-    { key: "chemistry", label: t("tutors.subjects.chemistry") },
-    { key: "french", label: t("tutors.subjects.french") },
-    { key: "history", label: t("tutors.subjects.history") },
-    { key: "geography", label: t("tutors.subjects.geography") },
-    { key: "english", label: t("tutors.subjects.english") },
-    { key: "spanish", label: t("tutors.subjects.spanish") },
-    { key: "literature", label: t("tutors.subjects.literature") }
-  ]
-    const levels = [
-    { key: "primary", label: t("tutors.levels.primary") },
-    { key: "middle", label: t("tutors.levels.middle") },
-    { key: "high", label: t("tutors.levels.high") },
-    { key: "university", label: t("tutors.levels.university") }
-  ]
-    const languages = [
-    { key: "french", label: t("tutors.languages.french") },
-    { key: "english", label: t("tutors.languages.english") },
-    { key: "spanish", label: t("tutors.languages.spanish") },
-    { key: "german", label: t("tutors.languages.german") },
-    { key: "italian", label: t("tutors.languages.italian") }
-  ]
+  const subjects = ["Mathématiques", "Physique", "Chimie", "Français", "Histoire", "Géographie", "Anglais", "Espagnol"]
+  const levels = ["Primaire", "Collège", "Lycée", "Université"]
+  const languages = ["Français", "Anglais", "Espagnol", "Allemand", "Italien"]
 
   const filteredTutors = mockTutors.filter((tutor) => {
     const matchesSearch =
@@ -200,8 +178,8 @@ export function TutorSearch() {
               <SelectContent>
                 <SelectItem value="all">{t('tutors.allSubjects')}</SelectItem>
                 {subjects.map((subject) => (
-                  <SelectItem key={subject.key} value={subject.key}>
-                    {subject.label}
+                  <SelectItem key={subject} value={subject}>
+                    {subject}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -213,8 +191,8 @@ export function TutorSearch() {
               <SelectContent>
                 <SelectItem value="all">{t('tutors.allLevels')}</SelectItem>
                 {levels.map((level) => (
-                  <SelectItem key={level.key} value={level.key}>
-                    {level.label}
+                  <SelectItem key={level} value={level}>
+                    {level}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -240,7 +218,7 @@ export function TutorSearch() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Price Range */}
               <div className="space-y-3">
-                <Label>{t("tutors.search.pricePerHour")}</Label>
+                <Label>Prix par heure</Label>
                 <div className="px-3">
                   <Slider
                     value={priceRange}
@@ -259,17 +237,17 @@ export function TutorSearch() {
 
               {/* Languages */}
               <div className="space-y-3">
-                <Label>{t("tutors.search.spokenLanguages")}</Label>
+                <Label>Langues parlées</Label>
                 <div className="space-y-2">
                   {languages.map((language) => (
                     <div key={language} className="flex items-center space-x-2">
                       <Checkbox
-                        id={language.key}
-                        checked={selectedLanguages.includes(language.key)}
-                        onCheckedChange={(checked) => handleLanguageChange(language.key, checked as boolean)}
+                        id={language}
+                        checked={selectedLanguages.includes(language)}
+                        onCheckedChange={(checked) => handleLanguageChange(language, checked as boolean)}
                       />
-                      <Label htmlFor={language.key} className="text-sm">
-                        {language.label}
+                      <Label htmlFor={language} className="text-sm">
+                        {language}
                       </Label>
                     </div>
                   ))}
@@ -278,18 +256,18 @@ export function TutorSearch() {
 
               {/* Availability & Verification */}
               <div className="space-y-3">
-                <Label>{t("tutors.search.options")}</Label>
+                <Label>Options</Label>
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2">
                     <Checkbox id="available" checked={onlyAvailable} onCheckedChange={setOnlyAvailable} />
                     <Label htmlFor="available" className="text-sm">
-                      {t("tutors.search.availableNow")}
+                      Disponible maintenant
                     </Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Checkbox id="verified" checked={onlyVerified} onCheckedChange={setOnlyVerified} />
                     <Label htmlFor="verified" className="text-sm">
-                      {t("tutors.search.verifiedOnly")}
+                      Profil vérifié uniquement
                     </Label>
                   </div>
                 </div>
@@ -336,8 +314,8 @@ export function TutorSearch() {
                 <Search className="h-8 w-8 text-muted-foreground" />
               </div>
               <div>
-                <h3 className="font-semibold text-lg">{t("tutors.search.noTutorsFound")}</h3>
-                <p className="text-muted-foreground">{t("tutors.search.modifySearch")}</p>
+                <h3 className="font-semibold text-lg">Aucun tuteur trouvé</h3>
+                <p className="text-muted-foreground">Essayez de modifier vos critères de recherche</p>
               </div>
               <Button
                 variant="outline"
@@ -351,7 +329,7 @@ export function TutorSearch() {
                   setOnlyVerified(false)
                 }}
               >
-                {t("tutors.search.resetFilters")}
+                Réinitialiser les filtres
               </Button>
             </div>
           </CardContent>

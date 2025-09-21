@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { useI18n } from "@/contexts/i18n-context"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -27,8 +26,7 @@ interface TutorProfileProps {
   tutorId: string
 }
 
-export default function TutorProfile() {
-  const { t } = useI18n()
+export function TutorProfile({ tutorId }: TutorProfileProps) {
   const [activeTab, setActiveTab] = useState("about")
 
   // Mock data - would normally fetch based on tutorId
@@ -36,17 +34,17 @@ export default function TutorProfile() {
     id: 1,
     name: "Prof. Jean Martin",
     avatar: "/placeholder.svg?height=120&width=120",
-    subjects: [t("tutors.profile.mock.subjects.mathematics"), t("tutors.profile.mock.subjects.physics")],
-    level: [t("tutors.profile.mock.levels.highSchool"), t("tutors.profile.mock.levels.university")],
+    subjects: ["Mathématiques", "Physique"],
+    level: ["Lycée", "Université"],
     rating: 4.9,
     reviewCount: 127,
     hourlyRate: 35,
     location: "Paris",
-    languages: [t("tutors.profile.mock.languages.french"), t("tutors.profile.mock.languages.english")],
+    languages: ["Français", "Anglais"],
     experience: 8,
     description:
       "Professeur agrégé de mathématiques avec 8 ans d'expérience dans l'enseignement. Je me spécialise dans la préparation au baccalauréat et aux concours d'entrée aux grandes écoles. Ma méthode pédagogique s'adapte au rythme de chaque élève pour garantir une progression optimale.",
-    availability: t("tutors.profile.mock.availability.available"),
+    availability: "Disponible",
     verified: true,
     responseTime: "< 1h",
     completedLessons: 450,
@@ -66,7 +64,7 @@ export default function TutorProfile() {
       rating: 5,
       date: "Il y a 2 semaines",
       comment: "Excellent professeur ! Très pédagogue et patient. Mes notes en maths ont considérablement progressé.",
-      subject: t("tutors.profile.mock.subjects.mathematics"),
+      subject: "Mathématiques",
     },
     {
       id: 2,
@@ -74,7 +72,7 @@ export default function TutorProfile() {
       rating: 5,
       date: "Il y a 1 mois",
       comment: "Explications très claires, méthodes efficaces. Je recommande vivement pour la préparation au bac.",
-      subject: t("tutors.profile.mock.subjects.physics"),
+      subject: "Physique",
     },
     {
       id: 3,
@@ -82,7 +80,7 @@ export default function TutorProfile() {
       rating: 4,
       date: "Il y a 2 mois",
       comment: "Bon professeur, disponible et à l'écoute. Les cours sont bien structurés.",
-      subject: t("tutors.profile.mock.subjects.mathematics"),
+      subject: "Mathématiques",
     },
   ]
 
@@ -137,7 +135,7 @@ export default function TutorProfile() {
                       <span className="font-bold text-lg">{tutor.rating}</span>
                       <span className="text-muted-foreground">({tutor.reviewCount} avis)</span>
                     </div>
-                    <Badge variant="default">{t("tutors.profile.verified")}</Badge>
+                    <Badge variant="default">Vérifié</Badge>
                   </div>
                 </div>
 
@@ -156,15 +154,15 @@ export default function TutorProfile() {
                   </div>
                   <div className="flex items-center space-x-2">
                     <Clock className="h-4 w-4 text-muted-foreground" />
-                    <span>{t("tutors.profile.respondsIn")} {tutor.responseTime}</span>
+                    <span>Répond en {tutor.responseTime}</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Award className="h-4 w-4 text-muted-foreground" />
-                    <span>{tutor.experience} {t("tutors.profile.yearsExperience")}</span>
+                    <span>{tutor.experience} ans d'expérience</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Users className="h-4 w-4 text-muted-foreground" />
-                    <span>{tutor.completedLessons} {t("tutors.profile.lessonsGiven")}</span>
+                    <span>{tutor.completedLessons} cours donnés</span>
                   </div>
                 </div>
               </div>
@@ -186,7 +184,7 @@ export default function TutorProfile() {
                 <Button size="lg" asChild>
                   <Link href={`/tutors/${tutor.id}/book`}>
                     <Calendar className="h-5 w-5 mr-2" />
-                    {t("tutors.profile.bookLesson")}
+                    Réserver un cours
                   </Link>
                 </Button>
                 <Button variant="outline" size="lg">
@@ -202,16 +200,16 @@ export default function TutorProfile() {
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="about">{t("tutors.profile.tabs.about")}</TabsTrigger>
-          <TabsTrigger value="reviews">{t("tutors.profile.tabs.reviews")} ({tutor.reviewCount})</TabsTrigger>
-          <TabsTrigger value="availability">{t("tutors.profile.tabs.availability")}</TabsTrigger>
-          <TabsTrigger value="credentials">{t("tutors.profile.tabs.credentials")}</TabsTrigger>
+          <TabsTrigger value="about">À propos</TabsTrigger>
+          <TabsTrigger value="reviews">Avis ({tutor.reviewCount})</TabsTrigger>
+          <TabsTrigger value="availability">Disponibilités</TabsTrigger>
+          <TabsTrigger value="credentials">Qualifications</TabsTrigger>
         </TabsList>
 
         <TabsContent value="about" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>{t("tutors.profile.about.presentation")}</CardTitle>
+              <CardTitle>Présentation</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground leading-relaxed">{tutor.description}</p>
@@ -221,7 +219,7 @@ export default function TutorProfile() {
           <div className="grid md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle>{t("tutors.profile.about.specialties")}</CardTitle>
+                <CardTitle>Spécialités</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
@@ -237,7 +235,7 @@ export default function TutorProfile() {
 
             <Card>
               <CardHeader>
-                <CardTitle>{t("tutors.profile.about.languages")}</CardTitle>
+                <CardTitle>Langues parlées</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2">
@@ -263,10 +261,10 @@ export default function TutorProfile() {
               <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
                 <div className="text-center space-y-2">
                   <Video className="h-12 w-12 text-muted-foreground mx-auto" />
-                  <p className="text-muted-foreground">{t("tutors.profile.about.videoAvailable")}</p>
+                  <p className="text-muted-foreground">Vidéo de présentation disponible</p>
                   <Button variant="outline">
                     <Video className="h-4 w-4 mr-2" />
-                    {t("tutors.profile.about.watchVideo")}
+                    Regarder la vidéo
                   </Button>
                 </div>
               </div>
@@ -293,14 +291,14 @@ export default function TutorProfile() {
                       />
                     ))}
                   </div>
-                  <p className="text-sm text-muted-foreground">{t("tutors.profile.reviews.basedOn")} {tutor.reviewCount} {t("tutors.profile.reviews.reviews")}</p>
+                  <p className="text-sm text-muted-foreground">Basé sur {tutor.reviewCount} avis</p>
                 </div>
               </CardContent>
             </Card>
 
             <Card className="md:col-span-2">
               <CardHeader>
-                <CardTitle>{t("tutors.profile.reviews.distribution")}</CardTitle>
+                <CardTitle>Répartition des notes</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -359,8 +357,8 @@ export default function TutorProfile() {
         <TabsContent value="availability" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>{t("tutors.profile.availability.thisWeek")}</CardTitle>
-              <CardDescription>{t("tutors.profile.availability.timezone")}</CardDescription>
+              <CardTitle>Créneaux disponibles cette semaine</CardTitle>
+              <CardDescription>Tous les horaires sont en heure française (CET)</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid gap-4">
@@ -435,25 +433,25 @@ export default function TutorProfile() {
 
           <Card>
             <CardHeader>
-              <CardTitle>{t("tutors.profile.credentials.verifications")}</CardTitle>
+              <CardTitle>Vérifications effectuées</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="flex items-center space-x-3">
                   <CheckCircle className="h-5 w-5 text-green-600" />
-                  <span className="text-sm">{t("tutors.profile.credentials.identityVerified")}</span>
+                  <span className="text-sm">Identité vérifiée</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <CheckCircle className="h-5 w-5 text-green-600" />
-                  <span className="text-sm">{t("tutors.profile.credentials.diplomasVerified")}</span>
+                  <span className="text-sm">Diplômes vérifiés</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <CheckCircle className="h-5 w-5 text-green-600" />
-                  <span className="text-sm">{t("tutors.profile.credentials.backgroundCheck")}</span>
+                  <span className="text-sm">Casier judiciaire vérifié</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <CheckCircle className="h-5 w-5 text-green-600" />
-                  <span className="text-sm">{t("tutors.profile.credentials.references")}</span>
+                  <span className="text-sm">Références professionnelles</span>
                 </div>
               </div>
             </CardContent>
