@@ -11,11 +11,9 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Eye, EyeOff, Mail, Lock, AlertCircle } from "lucide-react"
 import Link from "next/link"
-import { useI18n } from "@/contexts/i18n-context"
 
 export function LoginForm() {
-  const { t } = useI18n()
-    const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
   const [formData, setFormData] = useState({
@@ -38,10 +36,10 @@ export function LoginForm() {
         // Redirect to dashboard
         window.location.href = "/dashboard"
       } else {
-        setError(t("auth.errors.invalidCredentials"))
+        setError("Email ou mot de passe incorrect")
       }
     } catch (err) {
-      setError(t("auth.errors.genericError"))
+      setError("Une erreur est survenue. Veuillez réessayer.")
     } finally {
       setIsLoading(false)
     }
@@ -74,7 +72,7 @@ export function LoginForm() {
             <Input
               id="email"
               type="email"
-              placeholder={t("auth.placeholders.email")}
+              placeholder="votre@email.com"
               className="pl-10"
               value={formData.email}
               onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
@@ -120,7 +118,7 @@ export function LoginForm() {
               onCheckedChange={(checked) => setFormData((prev) => ({ ...prev, rememberMe: checked as boolean }))}
             />
             <Label htmlFor="remember" className="text-sm">
-              {t("auth.form.rememberMe")}
+              Se souvenir de moi
             </Label>
           </div>
           <Link href="/forgot-password" className="text-sm text-primary hover:underline">
@@ -138,7 +136,7 @@ export function LoginForm() {
           <Separator className="w-full" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">{t("auth.form.orContinueWith")}</span>
+          <span className="bg-background px-2 text-muted-foreground">Ou continuer avec</span>
         </div>
       </div>
 

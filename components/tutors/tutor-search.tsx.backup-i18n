@@ -10,7 +10,6 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Slider } from "@/components/ui/slider"
 import { TutorCard } from "./tutor-card"
 import { Search, Filter, SlidersHorizontal } from "lucide-react"
-import { useI18n } from "@/contexts/i18n-context"
 
 // Mock data
 const mockTutors = [
@@ -92,7 +91,6 @@ const mockTutors = [
 ]
 
 export function TutorSearch() {
-  const { t } = useI18n()
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedSubject, setSelectedSubject] = useState("all")
   const [selectedLevel, setSelectedLevel] = useState("all")
@@ -164,7 +162,7 @@ export function TutorSearch() {
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
-                  placeholder={t('tutors.search.placeholder')}
+                  placeholder="Rechercher par nom ou matière..."
                   className="pl-10"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -173,10 +171,10 @@ export function TutorSearch() {
             </div>
             <Select value={selectedSubject} onValueChange={setSelectedSubject}>
               <SelectTrigger className="w-full md:w-48">
-                <SelectValue placeholder={t('tutors.search.subject')} />
+                <SelectValue placeholder="Matière" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">{t('tutors.allSubjects')}</SelectItem>
+                <SelectItem value="all">Toutes les matières</SelectItem>
                 {subjects.map((subject) => (
                   <SelectItem key={subject} value={subject}>
                     {subject}
@@ -186,10 +184,10 @@ export function TutorSearch() {
             </Select>
             <Select value={selectedLevel} onValueChange={setSelectedLevel}>
               <SelectTrigger className="w-full md:w-48">
-                <SelectValue placeholder={t('tutors.search.level')} />
+                <SelectValue placeholder="Niveau" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">{t('tutors.allLevels')}</SelectItem>
+                <SelectItem value="all">Tous les niveaux</SelectItem>
                 {levels.map((level) => (
                   <SelectItem key={level} value={level}>
                     {level}
@@ -280,21 +278,21 @@ export function TutorSearch() {
       {/* Results Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold">{sortedTutors.length} {t("tutors.search.tutorsFound")}</h2>
+          <h2 className="text-2xl font-bold">{sortedTutors.length} tuteurs trouvés</h2>
           <p className="text-muted-foreground">
-            {selectedSubject !== "all" && `${t("tutors.search.subject_")} ${subjects.find(s => s.key === selectedSubject)?.label || selectedSubject}`}
-            {selectedLevel !== "all" && ` • ${t("tutors.search.level_")} ${levels.find(l => l.key === selectedLevel)?.label || selectedLevel}`}
+            {selectedSubject !== "all" && `Matière: ${selectedSubject}`}
+            {selectedLevel !== "all" && ` • Niveau: ${selectedLevel}`}
           </p>
         </div>
         <Select value={sortBy} onValueChange={setSortBy}>
           <SelectTrigger className="w-full md:w-48">
-            <SelectValue placeholder={t("tutors.search.sortBy")} />
+            <SelectValue placeholder="Trier par" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="rating">{t("tutors.search.topRated")}</SelectItem>
-            <SelectItem value="price-low">{t("tutors.search.priceLowToHigh")}</SelectItem>
-            <SelectItem value="price-high">{t("tutors.search.priceHighToLow")}</SelectItem>
-            <SelectItem value="experience">{t("tutors.search.mostExperienced")}</SelectItem>
+            <SelectItem value="rating">Mieux notés</SelectItem>
+            <SelectItem value="price-low">Prix croissant</SelectItem>
+            <SelectItem value="price-high">Prix décroissant</SelectItem>
+            <SelectItem value="experience">Plus expérimentés</SelectItem>
           </SelectContent>
         </Select>
       </div>

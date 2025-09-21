@@ -280,21 +280,21 @@ export function TutorSearch() {
       {/* Results Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold">{sortedTutors.length} {t("tutors.search.tutorsFound")}</h2>
+          <h2 className="text-2xl font-bold">{sortedTutors.length} tuteurs trouvés</h2>
           <p className="text-muted-foreground">
-            {selectedSubject !== "all" && `${t("tutors.search.subject_")} ${subjects.find(s => s.key === selectedSubject)?.label || selectedSubject}`}
-            {selectedLevel !== "all" && ` • ${t("tutors.search.level_")} ${levels.find(l => l.key === selectedLevel)?.label || selectedLevel}`}
+            {selectedSubject !== "all" && `Matière: ${selectedSubject}`}
+            {selectedLevel !== "all" && ` • Niveau: ${selectedLevel}`}
           </p>
         </div>
         <Select value={sortBy} onValueChange={setSortBy}>
           <SelectTrigger className="w-full md:w-48">
-            <SelectValue placeholder={t("tutors.search.sortBy")} />
+            <SelectValue placeholder="Trier par" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="rating">{t("tutors.search.topRated")}</SelectItem>
-            <SelectItem value="price-low">{t("tutors.search.priceLowToHigh")}</SelectItem>
-            <SelectItem value="price-high">{t("tutors.search.priceHighToLow")}</SelectItem>
-            <SelectItem value="experience">{t("tutors.search.mostExperienced")}</SelectItem>
+            <SelectItem value="rating">Mieux notés</SelectItem>
+            <SelectItem value="price-low">Prix croissant</SelectItem>
+            <SelectItem value="price-high">Prix décroissant</SelectItem>
+            <SelectItem value="experience">Plus expérimentés</SelectItem>
           </SelectContent>
         </Select>
       </div>

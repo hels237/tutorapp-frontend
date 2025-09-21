@@ -12,11 +12,9 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Eye, EyeOff, Mail, Lock, User, AlertCircle, GraduationCap, Users, BookOpen } from "lucide-react"
 import Link from "next/link"
-import { useI18n } from "@/contexts/i18n-context"
 
 export function RegisterForm() {
-  const { t } = useI18n()
-    const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
@@ -39,7 +37,7 @@ export function RegisterForm() {
     try {
       // Validation
       if (formData.password !== formData.confirmPassword) {
-        setError(t("auth.errors.passwordMismatch"))
+        setError("Les mots de passe ne correspondent pas")
         return
       }
 
@@ -54,7 +52,7 @@ export function RegisterForm() {
       // Mock successful registration
       window.location.href = "/verify-email"
     } catch (err) {
-      setError(t("auth.errors.genericError"))
+      setError("Une erreur est survenue. Veuillez réessayer.")
     } finally {
       setIsLoading(false)
     }
@@ -117,7 +115,7 @@ export function RegisterForm() {
             <Input
               id="firstName"
               type="text"
-              placeholder={t("auth.placeholders.firstName")}
+              placeholder="Votre prénom"
               className="pl-10"
               value={formData.firstName}
               onChange={(e) => setFormData((prev) => ({ ...prev, firstName: e.target.value }))}
@@ -133,7 +131,7 @@ export function RegisterForm() {
             <Input
               id="lastName"
               type="text"
-              placeholder={t("auth.placeholders.lastName")}
+              placeholder="Votre nom"
               className="pl-10"
               value={formData.lastName}
               onChange={(e) => setFormData((prev) => ({ ...prev, lastName: e.target.value }))}
@@ -150,7 +148,7 @@ export function RegisterForm() {
           <Input
             id="email"
             type="email"
-            placeholder={t("auth.placeholders.email")}
+            placeholder="votre@email.com"
             className="pl-10"
             value={formData.email}
             onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
@@ -166,7 +164,7 @@ export function RegisterForm() {
           <Input
             id="password"
             type={showPassword ? "text" : "password"}
-            placeholder={t("auth.placeholders.password")}
+            placeholder="Minimum 8 caractères"
             className="pl-10 pr-10"
             value={formData.password}
             onChange={(e) => setFormData((prev) => ({ ...prev, password: e.target.value }))}
@@ -196,7 +194,7 @@ export function RegisterForm() {
           <Input
             id="confirmPassword"
             type={showConfirmPassword ? "text" : "password"}
-            placeholder={t("auth.placeholders.confirmPassword")}
+            placeholder="Confirmez votre mot de passe"
             className="pl-10 pr-10"
             value={formData.confirmPassword}
             onChange={(e) => setFormData((prev) => ({ ...prev, confirmPassword: e.target.value }))}

@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Star, MapPin, Clock, Euro, CheckCircle, Calendar } from "lucide-react"
 import Link from "next/link"
-import { useI18n } from "@/contexts/i18n-context"
 
 interface TutorCardProps {
   tutor: {
@@ -30,41 +29,6 @@ interface TutorCardProps {
 }
 
 export function TutorCard({ tutor }: TutorCardProps) {
-  const { t } = useI18n()
-  
-  // Helper functions pour les traductions dynamiques
-  const getSubjectLabel = (subjectKey: string) => {
-    const subjectMap: Record<string, string> = {
-      'mathematics': t('subjects.mathematics'),
-      'physics': t('subjects.physics'),
-      'chemistry': t('subjects.chemistry'),
-      'biology': t('subjects.biology'),
-      'french': t('subjects.french'),
-      'literature': t('subjects.literature'),
-      'history': t('subjects.history'),
-      'geography': t('subjects.geography'),
-      'philosophy': t('subjects.philosophy'),
-      'economics': t('subjects.economics'),
-      'computer': t('subjects.computer'),
-      'english': t('subjects.english'),
-      'spanish': t('subjects.spanish'),
-      'german': t('subjects.german'),
-      'italian': t('subjects.italian')
-    }
-    return subjectMap[subjectKey] || subjectKey
-  }
-  
-  const getLanguageLabel = (languageKey: string) => {
-    const languageMap: Record<string, string> = {
-      'french': t('languages.french'),
-      'english': t('languages.english'),
-      'spanish': t('languages.spanish'),
-      'german': t('languages.german'),
-      'italian': t('languages.italian')
-    }
-    return languageMap[languageKey] || languageKey
-  }
-  
   return (
     <Card className="hover:shadow-lg transition-shadow duration-300">
       <CardHeader className="pb-4">
@@ -93,12 +57,12 @@ export function TutorCard({ tutor }: TutorCardProps) {
               <span className="text-xs text-muted-foreground">({tutor.reviewCount})</span>
             </div>
             <div className="flex items-center space-x-2 mt-2">
-              <Badge variant={tutor.availability === "available" ? "default" : "secondary"} className="text-xs">
-                {tutor.availability === "available" ? t('tutors.card.available') : t('tutors.card.busy')}
+              <Badge variant={tutor.availability === "Disponible" ? "default" : "secondary"} className="text-xs">
+                {tutor.availability}
               </Badge>
               {tutor.verified && (
                 <Badge variant="outline" className="text-xs">
-                  {t('tutors.card.verified')}
+                  Vérifié
                 </Badge>
               )}
             </div>
@@ -112,7 +76,7 @@ export function TutorCard({ tutor }: TutorCardProps) {
           <div className="flex flex-wrap gap-1">
             {tutor.subjects.map((subject) => (
               <Badge key={subject} variant="secondary" className="text-xs">
-                {getSubjectLabel(subject)}
+                {subject}
               </Badge>
             ))}
           </div>
@@ -129,12 +93,12 @@ export function TutorCard({ tutor }: TutorCardProps) {
           </div>
           <div className="flex items-center space-x-2">
             <Clock className="h-3 w-3" />
-            <span>{t('tutors.card.respondsIn')} {tutor.responseTime}</span>
+            <span>Répond en {tutor.responseTime}</span>
           </div>
           <div className="flex items-center space-x-2">
-            <span>{tutor.experience} {t('tutors.card.yearsExperience')}</span>
+            <span>{tutor.experience} ans d'expérience</span>
             <span>•</span>
-            <span>{tutor.completedLessons} {t('tutors.card.lessonsGiven')}</span>
+            <span>{tutor.completedLessons} cours donnés</span>
           </div>
         </div>
 
@@ -142,7 +106,7 @@ export function TutorCard({ tutor }: TutorCardProps) {
         <div className="flex flex-wrap gap-1">
           {tutor.languages.map((language) => (
             <Badge key={language} variant="outline" className="text-xs">
-              {getLanguageLabel(language)}
+              {language}
             </Badge>
           ))}
         </div>
@@ -152,16 +116,16 @@ export function TutorCard({ tutor }: TutorCardProps) {
           <div className="flex items-center space-x-1">
             <Euro className="h-4 w-4 text-primary" />
             <span className="font-bold text-lg">{tutor.hourlyRate}€</span>
-            <span className="text-sm text-muted-foreground">{t('tutors.hourlyRate')}</span>
+            <span className="text-sm text-muted-foreground">/heure</span>
           </div>
           <div className="flex space-x-2">
             <Button variant="outline" size="sm" asChild>
-              <Link href={`/tutors/${tutor.id}`}>{t('tutors.card.viewProfile')}</Link>
+              <Link href={`/tutors/${tutor.id}`}>Voir profil</Link>
             </Button>
             <Button size="sm" asChild>
               <Link href={`/tutors/${tutor.id}/book`}>
                 <Calendar className="h-4 w-4 mr-1" />
-                {t('tutors.card.book')}
+                Réserver
               </Link>
             </Button>
           </div>

@@ -1,0 +1,133 @@
+{
+  "timestamp": "2025-09-21T11:04:04.538Z",
+  "averageScore": 65.45454545454545,
+  "highIssues": 4,
+  "pages": [
+    {
+      "file": "/home/hels/Desktop/TutorApp project/TutorApp-fullstack/TutorApp-frontend/app/page.tsx",
+      "hasUseI18n": true,
+      "hasClientDirective": true,
+      "issues": [],
+      "score": 100
+    },
+    {
+      "file": "/home/hels/Desktop/TutorApp project/TutorApp-fullstack/TutorApp-frontend/app/login/page.tsx",
+      "hasUseI18n": true,
+      "hasClientDirective": true,
+      "issues": [],
+      "score": 100
+    },
+    {
+      "file": "/home/hels/Desktop/TutorApp project/TutorApp-fullstack/TutorApp-frontend/app/register/page.tsx",
+      "hasUseI18n": true,
+      "hasClientDirective": true,
+      "issues": [],
+      "score": 100
+    },
+    {
+      "file": "/home/hels/Desktop/TutorApp project/TutorApp-fullstack/TutorApp-frontend/app/become-tutor/page.tsx",
+      "hasUseI18n": true,
+      "hasClientDirective": true,
+      "issues": [
+        {
+          "type": "Texte français hardcodé",
+          "severity": "high",
+          "matches": [
+            "Mathématiques",
+            "Physique",
+            "Chimie",
+            "Biologie",
+            "Français"
+          ]
+        }
+      ],
+      "score": 0
+    },
+    {
+      "file": "/home/hels/Desktop/TutorApp project/TutorApp-fullstack/TutorApp-frontend/app/forgot-password/page.tsx",
+      "hasUseI18n": true,
+      "hasClientDirective": true,
+      "issues": [],
+      "score": 100
+    },
+    {
+      "file": "/home/hels/Desktop/TutorApp project/TutorApp-fullstack/TutorApp-frontend/app/tutors/page.tsx",
+      "hasUseI18n": true,
+      "hasClientDirective": true,
+      "issues": [],
+      "score": 100
+    }
+  ],
+  "components": [
+    {
+      "file": "/home/hels/Desktop/TutorApp project/TutorApp-fullstack/TutorApp-frontend/components/auth/login-form.tsx",
+      "hasUseI18n": true,
+      "hasClientDirective": true,
+      "issues": [
+        {
+          "type": "Texte français hardcodé",
+          "severity": "high",
+          "matches": [
+            "Google login initiated",
+            "Apple login initiated",
+            "Adresse email",
+            "Mot de passe",
+            "Votre mot de passe"
+          ]
+        }
+      ],
+      "score": 0
+    },
+    {
+      "file": "/home/hels/Desktop/TutorApp project/TutorApp-fullstack/TutorApp-frontend/components/auth/register-form.tsx",
+      "hasUseI18n": true,
+      "hasClientDirective": true,
+      "issues": [
+        {
+          "type": "Texte français hardcodé",
+          "severity": "high",
+          "matches": [
+            "Google signup initiated",
+            "Apple signup initiated",
+            "Étudiant",
+            "Parent",
+            "Tuteur"
+          ]
+        }
+      ],
+      "score": 0
+    },
+    {
+      "file": "/home/hels/Desktop/TutorApp project/TutorApp-fullstack/TutorApp-frontend/components/auth/forgot-password-form.tsx",
+      "hasUseI18n": true,
+      "hasClientDirective": true,
+      "issues": [
+        {
+          "type": "Texte français hardcodé",
+          "severity": "high",
+          "matches": [
+            "Nous avons envoyé un lien de réinitialisation à",
+            "Vérifiez votre boîte de réception et vos spams",
+            "Adresse email",
+            "Envoyer le lien"
+          ]
+        }
+      ],
+      "score": 20
+    },
+    {
+      "file": "/home/hels/Desktop/TutorApp project/TutorApp-fullstack/TutorApp-frontend/components/layout/header.tsx",
+      "hasUseI18n": true,
+      "hasClientDirective": true,
+      "issues": [],
+      "score": 100
+    },
+    {
+      "file": "/home/hels/Desktop/TutorApp project/TutorApp-fullstack/TutorApp-frontend/components/layout/footer.tsx",
+      "hasUseI18n": true,
+      "hasClientDirective": true,
+      "issues": [],
+      "score": 100
+    }
+  ]
+}

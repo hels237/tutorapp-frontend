@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-09-21T09:24:33.024Z",
+  "timestamp": "2025-09-21T11:01:08.680Z",
   "summary": {
     "totalPages": 28,
     "translatedPages": 4,
     "untranslatedPages": 24,
-    "pagesWithHardcodedText": 14
+    "pagesWithHardcodedText": 12
   },
   "pages": [
     {
@@ -149,16 +149,10 @@
     },
     {
       "page": "forgot-password/page.tsx",
-      "hasHardcodedText": true,
-      "hardcodedTexts": [
-        "Mot de passe oublié",
-        "Entrez votre email pour recevoir un lien de réinitialisation",
-        "Réinitialiser le mot de passe",
-        "Nous vous enverrons un email avec les instructions",
-        "Se connecter"
-      ],
-      "hasUseI18n": false,
-      "hasClientDirective": false
+      "hasHardcodedText": false,
+      "hardcodedTexts": [],
+      "hasUseI18n": true,
+      "hasClientDirective": true
     },
     {
       "page": "notifications/page.tsx",
@@ -219,7 +213,7 @@
         "/>\n                    </div>\n                  </div>\n\n                  <div>\n                    <Label htmlFor=",
         "/>\n                  </div>\n                </div>\n              )}\n\n              <div className="
       ],
-      "hasUseI18n": false,
+      "hasUseI18n": true,
       "hasClientDirective": true
     },
     {
@@ -318,8 +312,8 @@
         "Philosophie",
         "Voir les tuteurs"
       ],
-      "hasUseI18n": false,
-      "hasClientDirective": false
+      "hasUseI18n": true,
+      "hasClientDirective": true
     },
     {
       "page": "subjects/sciences/page.tsx",
@@ -401,13 +395,10 @@
     },
     {
       "page": "tutors/page.tsx",
-      "hasHardcodedText": true,
-      "hardcodedTexts": [
-        "Trouvez votre tuteur idéal",
-        "Découvrez des tuteurs qualifiés et expérimentés dans toutes les matières"
-      ],
-      "hasUseI18n": false,
-      "hasClientDirective": false
+      "hasHardcodedText": false,
+      "hardcodedTexts": [],
+      "hasUseI18n": true,
+      "hasClientDirective": true
     },
     {
       "page": "verify-email/page.tsx",
@@ -418,8 +409,8 @@
         "Email envoyé avec succès",
         "Retour à la connexion"
       ],
-      "hasUseI18n": false,
-      "hasClientDirective": false
+      "hasUseI18n": true,
+      "hasClientDirective": true
     }
   ]
 }
