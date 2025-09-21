@@ -1,11 +1,16 @@
+"use client"
+
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { ForgotPasswordForm } from "@/components/auth/forgot-password-form"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { BookOpen } from "lucide-react"
 import Link from "next/link"
+import { useI18n } from "@/contexts/i18n-context"
 
 export default function ForgotPasswordPage() {
+  const { t } = useI18n()
+  
   return (
     <div className="min-h-screen">
       <Header />
@@ -18,14 +23,14 @@ export default function ForgotPasswordPage() {
                 <BookOpen className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <h1 className="font-playfair text-3xl font-bold mb-2">Mot de passe oublié</h1>
-            <p className="text-muted-foreground">Entrez votre email pour recevoir un lien de réinitialisation</p>
+            <h1 className="text-3xl font-bold mb-2">{t('forgotPassword.title')}</h1>
+            <p className="text-muted-foreground">{t('forgotPassword.subtitle')}</p>
           </div>
 
           <Card>
             <CardHeader>
-              <CardTitle>Réinitialiser le mot de passe</CardTitle>
-              <CardDescription>Nous vous enverrons un email avec les instructions</CardDescription>
+              <CardTitle>{t('forgotPassword.cardTitle')}</CardTitle>
+              <CardDescription>{t('forgotPassword.cardDescription')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ForgotPasswordForm />
@@ -34,9 +39,9 @@ export default function ForgotPasswordPage() {
 
           <div className="text-center mt-6">
             <p className="text-sm text-muted-foreground">
-              Vous vous souvenez de votre mot de passe ?{" "}
+              {t('forgotPassword.rememberPassword')}{" "}
               <Link href="/login" className="text-primary hover:underline font-medium">
-                Se connecter
+                {t('forgotPassword.backToLogin')}
               </Link>
             </p>
           </div>

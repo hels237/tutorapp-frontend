@@ -233,7 +233,7 @@ export default function BecomeTutorPage() {
               </div>
 
               <div className="space-y-4">
-                <Label>{t('becomeTutor.form.subjects')} *</Label>
+                <Label>Matières que vous souhaitez enseigner *</Label>
                 <div className="grid md:grid-cols-3 gap-4">
                   {[
                     "Mathématiques",
@@ -261,54 +261,54 @@ export default function BecomeTutorPage() {
 
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="education">{t('becomeTutor.form.education')} *</Label>
+                  <Label htmlFor="education">Niveau d'études *</Label>
                   <Select>
                     <SelectTrigger>
-                      <SelectValue placeholder={t('becomeTutor.form.educationPlaceholder')} />
+                      <SelectValue placeholder="Sélectionnez votre niveau" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="bac+3">{t('becomeTutor.form.bachelor')}</SelectItem>
-                      <SelectItem value="bac+5">{t('becomeTutor.form.master')}</SelectItem>
-                      <SelectItem value="bac+8">{t('becomeTutor.form.phd')}</SelectItem>
-                      <SelectItem value="other">{t('becomeTutor.form.other')}</SelectItem>
+                      <SelectItem value="bac+3">Bac+3 (Licence)</SelectItem>
+                      <SelectItem value="bac+5">Bac+5 (Master)</SelectItem>
+                      <SelectItem value="bac+8">Bac+8 (Doctorat)</SelectItem>
+                      <SelectItem value="other">Autre</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="experience">{t('becomeTutor.form.experience')}</Label>
+                  <Label htmlFor="experience">Expérience d'enseignement</Label>
                   <Select>
                     <SelectTrigger>
-                      <SelectValue placeholder={t('becomeTutor.form.experiencePlaceholder')} />
+                      <SelectValue placeholder="Votre expérience" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="none">{t('becomeTutor.form.noExperience')}</SelectItem>
-                      <SelectItem value="1-2">{t('becomeTutor.form.oneToTwo')}</SelectItem>
-                      <SelectItem value="3-5">{t('becomeTutor.form.threeToFive')}</SelectItem>
-                      <SelectItem value="5+">{t('becomeTutor.form.fivePlus')}</SelectItem>
+                      <SelectItem value="none">Aucune expérience</SelectItem>
+                      <SelectItem value="1-2">1-2 ans</SelectItem>
+                      <SelectItem value="3-5">3-5 ans</SelectItem>
+                      <SelectItem value="5+">Plus de 5 ans</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="hourlyRate">{t('becomeTutor.form.hourlyRate')} *</Label>
+                <Label htmlFor="hourlyRate">Tarif horaire souhaité (€) *</Label>
                 <Input id="hourlyRate" type="number" placeholder="25" min="15" max="50" />
-                <p className="text-sm text-muted-foreground">{t('becomeTutor.form.rateRecommendation')}</p>
+                <p className="text-sm text-muted-foreground">Tarif recommandé : 20-35€/h selon votre expérience</p>
               </div>
 
               <div className="space-y-4">
-                <Label>{t('becomeTutor.form.documents')} *</Label>
+                <Label>Documents à fournir *</Label>
                 <div className="grid md:grid-cols-2 gap-4">
                   <Card className="p-4">
                     <div className="flex items-center space-x-3">
                       <Upload className="h-8 w-8 text-muted-foreground" />
                       <div>
-                        <p className="font-medium">{t('becomeTutor.form.idCard')}</p>
+                        <p className="font-medium">Pièce d'identité</p>
                         <p className="text-sm text-muted-foreground">Format PDF, max 5MB</p>
                       </div>
                     </div>
                     <Button variant="outline" className="w-full mt-3 bg-transparent">
-                      {t('becomeTutor.form.upload')}
+                      Télécharger
                     </Button>
                   </Card>
 
@@ -316,12 +316,12 @@ export default function BecomeTutorPage() {
                     <div className="flex items-center space-x-3">
                       <Upload className="h-8 w-8 text-muted-foreground" />
                       <div>
-                        <p className="font-medium">{t('becomeTutor.form.diplomas')}</p>
+                        <p className="font-medium">Diplômes</p>
                         <p className="text-sm text-muted-foreground">Format PDF, max 10MB</p>
                       </div>
                     </div>
                     <Button variant="outline" className="w-full mt-3 bg-transparent">
-                      {t('becomeTutor.form.upload')}
+                      Télécharger
                     </Button>
                   </Card>
                 </div>
@@ -331,26 +331,26 @@ export default function BecomeTutorPage() {
                 <div className="flex items-center space-x-2">
                   <Checkbox id="terms" />
                   <Label htmlFor="terms" className="text-sm">
-                    {t('becomeTutor.form.acceptTerms')}{" "}
+                    J'accepte les{" "}
                     <Link href="/terms" className="text-primary hover:underline">
-                      {t('becomeTutor.form.terms')}
+                      conditions d'utilisation
                     </Link>{" "}
                     et la{" "}
                     <Link href="/privacy" className="text-primary hover:underline">
-                      {t('becomeTutor.form.privacy')}
+                      politique de confidentialité
                     </Link>
                   </Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Checkbox id="newsletter" />
                   <Label htmlFor="newsletter" className="text-sm">
-                    {t('becomeTutor.form.newsletter')}
+                    Je souhaite recevoir des informations sur les opportunités d'enseignement
                   </Label>
                 </div>
               </div>
 
               <Button className="w-full" size="lg">
-                {t('becomeTutor.form.submit')}
+                Soumettre ma candidature
               </Button>
             </CardContent>
           </Card>
@@ -361,9 +361,9 @@ export default function BecomeTutorPage() {
       <section className="section-padding bg-muted/30">
         <div className="container safe-area">
           <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold">{t('becomeTutor.process.title')}</h2>
+            <h2 className="heading-xl text-3xl lg:text-4xl">Processus de sélection</h2>
             <p className="text-xl text-muted-foreground content-width-md mx-auto">
-              {t('becomeTutor.process.subtitle')}
+              Un processus simple et transparent en 4 étapes
             </p>
           </div>
 
@@ -372,17 +372,17 @@ export default function BecomeTutorPage() {
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
                 <span className="text-2xl font-bold text-primary">1</span>
               </div>
-              <h3 className="font-semibold">{t('becomeTutor.process.step1')}</h3>
-              <p className="text-sm text-muted-foreground">{t('becomeTutor.process.step1Desc')}</p>
+              <h3 className="font-semibold">Candidature</h3>
+              <p className="text-sm text-muted-foreground">Remplissez le formulaire et téléchargez vos documents</p>
             </div>
 
             <div className="text-center space-y-4">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
                 <span className="text-2xl font-bold text-primary">2</span>
               </div>
-              <h3 className="font-semibold">{t('becomeTutor.process.step2')}</h3>
+              <h3 className="font-semibold">Vérification</h3>
               <p className="text-sm text-muted-foreground">
-                {t('becomeTutor.process.step2Desc')}
+                Nous vérifions vos qualifications et documents (2-3 jours)
               </p>
             </div>
 
@@ -390,17 +390,17 @@ export default function BecomeTutorPage() {
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
                 <span className="text-2xl font-bold text-primary">3</span>
               </div>
-              <h3 className="font-semibold">{t('becomeTutor.process.step3')}</h3>
-              <p className="text-sm text-muted-foreground">{t('becomeTutor.process.step3Desc')}</p>
+              <h3 className="font-semibold">Entretien</h3>
+              <p className="text-sm text-muted-foreground">Entretien vidéo de 30 minutes pour valider votre profil</p>
             </div>
 
             <div className="text-center space-y-4">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
                 <span className="text-2xl font-bold text-primary">4</span>
               </div>
-              <h3 className="font-semibold">{t('becomeTutor.process.step4')}</h3>
+              <h3 className="font-semibold">Activation</h3>
               <p className="text-sm text-muted-foreground">
-                {t('becomeTutor.process.step4Desc')}
+                Votre profil est activé et vous pouvez commencer à enseigner
               </p>
             </div>
           </div>
@@ -411,13 +411,13 @@ export default function BecomeTutorPage() {
       <section className="section-padding">
         <div className="container safe-area content-width-xl mx-auto">
           <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold">{t('becomeTutor.faq.title')}</h2>
+            <h2 className="heading-xl text-3xl lg:text-4xl">Questions fréquentes</h2>
           </div>
 
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">{t('becomeTutor.faq.earning.question')}</CardTitle>
+                <CardTitle className="text-lg">Combien puis-je gagner en tant que tuteur ?</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
@@ -429,7 +429,7 @@ export default function BecomeTutorPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">{t('becomeTutor.faq.validation.question')}</CardTitle>
+                <CardTitle className="text-lg">Combien de temps prend le processus de validation ?</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
@@ -441,7 +441,7 @@ export default function BecomeTutorPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">{t('becomeTutor.faq.multiple.question')}</CardTitle>
+                <CardTitle className="text-lg">Puis-je enseigner plusieurs matières ?</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
@@ -453,7 +453,7 @@ export default function BecomeTutorPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">{t('becomeTutor.faq.payment.question')}</CardTitle>
+                <CardTitle className="text-lg">Comment fonctionne le paiement ?</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">

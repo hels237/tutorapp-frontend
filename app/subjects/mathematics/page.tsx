@@ -1,0 +1,228 @@
+import { Header } from "@/components/layout/header"
+import { Footer } from "@/components/layout/footer"
+import type { Metadata } from "next"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Calculator, TrendingUp, PieChart, BarChart3, Sigma, Triangle, ArrowRight } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Mathématiques - TutorApp",
+  description:
+    "Trouvez les meilleurs tuteurs en mathématiques. Algèbre, géométrie, calcul, statistiques et plus encore.",
+}
+
+const mathTopics = [
+  {
+    name: "Algèbre",
+    description: "Équations, inéquations, fonctions, polynômes",
+    icon: Sigma,
+    tutorCount: 89,
+    levels: ["Collège", "Lycée", "Supérieur"],
+  },
+  {
+    name: "Géométrie",
+    description: "Géométrie plane, dans l'espace, trigonométrie",
+    icon: Triangle,
+    tutorCount: 76,
+    levels: ["Collège", "Lycée"],
+  },
+  {
+    name: "Analyse",
+    description: "Dérivées, intégrales, limites, suites",
+    icon: TrendingUp,
+    tutorCount: 65,
+    levels: ["Lycée", "Supérieur"],
+  },
+  {
+    name: "Statistiques",
+    description: "Probabilités, statistiques descriptives",
+    icon: BarChart3,
+    tutorCount: 54,
+    levels: ["Lycée", "Supérieur"],
+  },
+  {
+    name: "Arithmétique",
+    description: "Nombres entiers, PGCD, PPCM, congruences",
+    icon: Calculator,
+    tutorCount: 43,
+    levels: ["Collège", "Lycée"],
+  },
+  {
+    name: "Mathématiques Appliquées",
+    description: "Optimisation, recherche opérationnelle",
+    icon: PieChart,
+    tutorCount: 32,
+    levels: ["Supérieur"],
+  },
+]
+
+const featuredTutors = [
+  {
+    name: "Marie Dubois",
+    rating: 4.9,
+    reviews: 127,
+    price: 35,
+    specialties: ["Algèbre", "Analyse"],
+    experience: "8 ans",
+    education: "Agrégée de Mathématiques",
+  },
+  {
+    name: "Pierre Martin",
+    rating: 4.8,
+    reviews: 98,
+    price: 40,
+    specialties: ["Géométrie", "Statistiques"],
+    experience: "12 ans",
+    education: "Docteur en Mathématiques",
+  },
+  {
+    name: "Sophie Laurent",
+    rating: 4.9,
+    reviews: 156,
+    price: 30,
+    specialties: ["Arithmétique", "Algèbre"],
+    experience: "6 ans",
+    education: "Master en Mathématiques",
+  },
+]
+
+export default function MathematicsPage() {
+  return (
+    <div className="min-h-screen">
+      <Header />
+      
+      {/* Hero Section */}
+      <section className="section-padding bg-gradient-to-br from-blue-50 via-background to-blue-50/50">
+        <div className="container safe-area">
+          <div className="text-center space-y-6">
+            <div className="inline-flex items-center justify-center p-4 bg-blue-500 text-white rounded-full mb-4">
+              <Calculator className="h-8 w-8" />
+            </div>
+            <h1 className="heading-hero text-4xl md:text-6xl text-balance">Mathématiques</h1>
+            <p className="text-xl text-muted-foreground content-width-md mx-auto">
+              Maîtrisez les mathématiques avec nos tuteurs experts. De l'algèbre de base aux mathématiques supérieures,
+              progressez à votre rythme.
+            </p>
+            <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <Badge variant="secondary">245 tuteurs</Badge>
+              </div>
+              <div className="flex items-center gap-2">
+                <Badge variant="secondary">Tous niveaux</Badge>
+              </div>
+              <div className="flex items-center gap-2">
+                <Badge variant="secondary">À partir de 25€/h</Badge>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Topics Section */}
+      <section className="section-padding">
+        <div className="container safe-area">
+          <div className="text-center mb-12">
+            <h2 className="heading-xl text-3xl md:text-4xl mb-4">Domaines d'Expertise</h2>
+            <p className="text-lg text-muted-foreground content-width-md mx-auto">
+              Nos tuteurs couvrent tous les domaines des mathématiques
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-gap-lg">
+            {mathTopics.map((topic) => {
+              const IconComponent = topic.icon
+              return (
+                <Card key={topic.name} className="hover:shadow-lg transition-all duration-300">
+                  <CardHeader>
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="p-2 bg-blue-100 text-blue-600 rounded-lg">
+                        <IconComponent className="h-5 w-5" />
+                      </div>
+                      <Badge variant="outline">{topic.tutorCount} tuteurs</Badge>
+                    </div>
+                    <CardTitle className="text-xl">{topic.name}</CardTitle>
+                    <CardDescription>{topic.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <div>
+                        <p className="text-sm font-medium mb-2">Niveaux :</p>
+                        <div className="flex flex-wrap gap-1">
+                          {topic.levels.map((level) => (
+                            <Badge key={level} variant="secondary" className="text-xs">
+                              {level}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Tutors */}
+      <section className="section-padding bg-muted/50">
+        <div className="container safe-area">
+          <div className="text-center mb-12">
+            <h2 className="heading-xl text-3xl md:text-4xl mb-4">Tuteurs Recommandés</h2>
+            <p className="text-lg text-muted-foreground">Découvrez nos tuteurs les mieux notés en mathématiques</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 grid-gap-lg">
+            {featuredTutors.map((tutor) => (
+              <Card key={tutor.name} className="hover:shadow-lg transition-all duration-300">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <CardTitle className="text-lg">{tutor.name}</CardTitle>
+                      <CardDescription>{tutor.education}</CardDescription>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-bold text-primary">{tutor.price}€/h</div>
+                      <div className="text-sm text-muted-foreground">
+                        ⭐ {tutor.rating} ({tutor.reviews})
+                      </div>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div>
+                      <p className="text-sm font-medium mb-1">Spécialités :</p>
+                      <div className="flex flex-wrap gap-1">
+                        {tutor.specialties.map((specialty) => (
+                          <Badge key={specialty} variant="outline" className="text-xs">
+                            {specialty}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                    <p className="text-sm text-muted-foreground">{tutor.experience} d'expérience</p>
+                    <Button className="w-full">Voir le profil</Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <Button size="lg" asChild>
+              <Link href="/tutors?subject=mathematics">
+                Voir tous les tuteurs
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+      
+      <Footer />
+    </div>
+  )
+}

@@ -1,5 +1,5 @@
-"use client"
-
+import { Header } from "@/components/layout/header"
+import { Footer } from "@/components/layout/footer"
 import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -18,7 +18,7 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Plus, Edit, Trash2, BookOpen, GraduationCap } from "lucide-react"
 
-export default function AdminSubjectsPage() {
+function AdminSubjectsContent() {
   const [subjects, setSubjects] = useState([
     { id: 1, name: "Mathématiques", category: "Sciences", active: true, tutorCount: 15 },
     { id: 2, name: "Physique-Chimie", category: "Sciences", active: true, tutorCount: 12 },
@@ -86,12 +86,11 @@ export default function AdminSubjectsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto px-4 max-w-6xl">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Gestion des Matières & Niveaux</h1>
-          <p className="text-gray-600">Administrez le catalogue des matières et niveaux scolaires</p>
-        </div>
+    <div className="space-y-8">
+      <div className="mb-8">
+        <h1 className="heading-xl text-3xl mb-2">Gestion des Matières & Niveaux</h1>
+        <p className="text-muted-foreground">Administrez le catalogue des matières et niveaux scolaires</p>
+      </div>
 
         <Tabs defaultValue="subjects" className="space-y-6">
           <TabsList>
@@ -289,7 +288,20 @@ export default function AdminSubjectsPage() {
             </Card>
           </TabsContent>
         </Tabs>
-      </div>
+    </div>
+  )
+}
+
+export default function AdminSubjectsPage() {
+  return (
+    <div className="min-h-screen">
+      <Header />
+      
+      <main className="container safe-area section-padding">
+        <AdminSubjectsContent />
+      </main>
+      
+      <Footer />
     </div>
   )
 }

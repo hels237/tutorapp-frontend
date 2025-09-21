@@ -1,11 +1,16 @@
+"use client"
+
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { RegisterForm } from "@/components/auth/register-form"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { BookOpen } from "lucide-react"
 import Link from "next/link"
+import { useI18n } from "@/contexts/i18n-context"
 
 export default function RegisterPage() {
+  const { t } = useI18n()
+  
   return (
     <div className="min-h-screen">
       <Header />
@@ -18,14 +23,14 @@ export default function RegisterPage() {
                 <BookOpen className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <h1 className="heading-xl text-3xl mb-2">Inscription</h1>
-            <p className="text-muted-foreground">Créez votre compte TutorApp</p>
+            <h1 className="text-3xl font-bold mb-2">{t('auth.register.title')}</h1>
+            <p className="text-muted-foreground">{t('auth.register.subtitle')}</p>
           </div>
 
           <Card>
             <CardHeader>
-              <CardTitle>Créer un compte</CardTitle>
-              <CardDescription>Rejoignez notre communauté d'apprentissage</CardDescription>
+              <CardTitle>{t('auth.register.cardTitle')}</CardTitle>
+              <CardDescription>{t('auth.register.cardDescription')}</CardDescription>
             </CardHeader>
             <CardContent>
               <RegisterForm />
@@ -34,9 +39,9 @@ export default function RegisterPage() {
 
           <div className="text-center mt-6">
             <p className="text-sm text-muted-foreground">
-              Déjà un compte ?{" "}
+              {t('auth.register.hasAccount')}{" "}
               <Link href="/login" className="text-primary hover:underline font-medium">
-                Se connecter
+                {t('auth.register.signIn')}
               </Link>
             </p>
           </div>

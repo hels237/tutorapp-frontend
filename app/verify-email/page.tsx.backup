@@ -1,7 +1,4 @@
-"use client"
-
 import { Header } from "@/components/layout/header"
-import { useI18n } from "@/contexts/i18n-context"
 import { Footer } from "@/components/layout/footer"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -9,8 +6,6 @@ import { Mail, CheckCircle } from "lucide-react"
 import Link from "next/link"
 
 export default function VerifyEmailPage() {
-  const { t } = useI18n()
-  
   return (
     <div className="min-h-screen">
       <Header />
@@ -22,7 +17,7 @@ export default function VerifyEmailPage() {
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Mail className="h-8 w-8 text-primary" />
               </div>
-              <CardTitle className="text-2xl">Vérifiez votre email</CardTitle>
+              <CardTitle className="font-playfair text-2xl">Vérifiez votre email</CardTitle>
               <CardDescription>Nous avons envoyé un lien de confirmation à votre adresse email</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">

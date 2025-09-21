@@ -5,6 +5,7 @@ import { GeistMono } from "geist/font/mono"
 import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
+import { I18nProvider } from "@/contexts/i18n-context"
 import "./globals.css"
 import "../styles/typography.css"
 import "../styles/layout.css"
@@ -31,7 +32,9 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} ${inter.variable}`}>
-        <Suspense fallback={null}>{children}</Suspense>
+        <I18nProvider>
+          <Suspense fallback={null}>{children}</Suspense>
+        </I18nProvider>
         <Analytics />
       </body>
     </html>

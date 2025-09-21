@@ -1,7 +1,12 @@
+"use client"
+
 import Link from "next/link"
 import { BookOpen, Mail, Phone, MapPin } from "lucide-react"
+import { useI18n } from "@/contexts/i18n-context"
 
 export function Footer() {
+  const { t } = useI18n()
+  
   return (
     <footer className="bg-muted/50 border-t">
       <div className="container safe-area section-padding">
@@ -10,36 +15,35 @@ export function Footer() {
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
               <BookOpen className="h-6 w-6 text-primary" />
-              <span className="heading-lg text-xl">TutorApp</span>
+              <span className="text-xl font-bold">TutorApp</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              TutorApp - La plateforme de tutorat en ligne qui connecte étudiants et tuteurs qualifiés pour un apprentissage
-              personnalisé et efficace.
+              {t('footer.description')}
             </p>
           </div>
 
           {/* Services */}
           <div className="space-y-4">
-            <h3 className="font-semibold">Services</h3>
+            <h3 className="font-semibold">{t('footer.services')}</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/tutors" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Trouver un Tuteur
+                  {t('nav.findTutor')}
                 </Link>
               </li>
               <li>
                 <Link href="/become-tutor" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Devenir Tuteur
+                  {t('nav.becomeTutor')}
                 </Link>
               </li>
               <li>
                 <Link href="/subjects" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Matières
+                  {t('nav.subjects')}
                 </Link>
               </li>
               <li>
                 <Link href="/pricing" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Tarifs
+                  {t('footer.pricing')}
                 </Link>
               </li>
             </ul>
@@ -47,26 +51,26 @@ export function Footer() {
 
           {/* Support */}
           <div className="space-y-4">
-            <h3 className="font-semibold">Support</h3>
+            <h3 className="font-semibold">{t('footer.support')}</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/help" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Centre d'aide
+                  {t('footer.helpCenter')}
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Contact
+                  {t('footer.contact')}
                 </Link>
               </li>
               <li>
                 <Link href="/faq" className="text-muted-foreground hover:text-foreground transition-colors">
-                  FAQ
+                  {t('footer.faq')}
                 </Link>
               </li>
               <li>
                 <Link href="/safety" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Sécurité
+                  {t('footer.safety')}
                 </Link>
               </li>
             </ul>
@@ -74,7 +78,7 @@ export function Footer() {
 
           {/* Contact */}
           <div className="space-y-4">
-            <h3 className="font-semibold">Contact</h3>
+            <h3 className="font-semibold">{t('footer.contact')}</h3>
             <div className="space-y-2 text-sm text-muted-foreground">
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4" />
@@ -94,16 +98,16 @@ export function Footer() {
 
         <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
-            <p>&copy; 2024 TutorApp. Tous droits réservés.</p>
+            <p>&copy; 2024 TutorApp. {t('footer.rights')}</p>
             <div className="flex space-x-4">
               <Link href="/privacy" className="hover:text-foreground transition-colors">
-                Confidentialité
+                {t('footer.privacy')}
               </Link>
               <Link href="/terms" className="hover:text-foreground transition-colors">
-                Conditions
+                {t('footer.terms')}
               </Link>
               <Link href="/cookies" className="hover:text-foreground transition-colors">
-                Cookies
+                {t('footer.cookies')}
               </Link>
             </div>
           </div>
