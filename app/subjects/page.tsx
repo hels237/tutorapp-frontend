@@ -3,18 +3,11 @@
 import { Header } from "@/components/layout/header"
 import { useI18n } from "@/contexts/i18n-context"
 import { Footer } from "@/components/layout/footer"
-import type { Metadata } from "next"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { BookOpen, Calculator, Atom, Globe, History, Palette, Music, Code, ArrowRight } from "lucide-react"
-
-export const metadata: Metadata = {
-  title: "Toutes les Matières - TutorApp",
-  description:
-    "Découvrez toutes les matières disponibles sur TutorApp. Mathématiques, Sciences, Langues et bien plus encore.",
-}
 
 const subjects = [
   {
