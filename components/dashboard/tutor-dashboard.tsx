@@ -8,8 +8,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { BookOpen, Calendar, Star, Users, Video, FileText, Settings, Bell, Euro, CheckCircle } from "lucide-react"
+import { useI18n } from "@/contexts/i18n-context"
+import Link from "next/link"
 
 export function TutorDashboard() {
+  const { t } = useI18n()
   const [activeTab, setActiveTab] = useState("overview")
 
   // Mock data
@@ -77,28 +80,32 @@ export function TutorDashboard() {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="font-playfair text-3xl font-bold">Tableau de bord Tuteur</h1>
-          <p className="text-muted-foreground">Bienvenue, {tutor.name}</p>
+          <h1 className="font-playfair text-3xl font-bold">{t('dashboard.tutor.title')}</h1>
+          <p className="text-muted-foreground">{t('dashboard.tutor.welcome')} {tutor.name}</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm">
-            <Bell className="h-4 w-4 mr-2" />
-            Notifications
+          <Button variant="outline" size="sm" asChild>
+            <Link href="/dashboard/tutor/notifications">
+              <Bell className="h-4 w-4 mr-2" />
+              {t('dashboard.tutor.notifications')}
+            </Link>
           </Button>
-          <Button variant="outline" size="sm">
-            <Settings className="h-4 w-4 mr-2" />
-            Paramètres
+          <Button variant="outline" size="sm" asChild>
+            <Link href="/dashboard/tutor/profile">
+              <Settings className="h-4 w-4 mr-2" />
+              {t('dashboard.tutor.settings')}
+            </Link>
           </Button>
         </div>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="overview">Vue d'ensemble</TabsTrigger>
-          <TabsTrigger value="schedule">Planning</TabsTrigger>
-          <TabsTrigger value="students">Étudiants</TabsTrigger>
-          <TabsTrigger value="earnings">Revenus</TabsTrigger>
-          <TabsTrigger value="profile">Profil</TabsTrigger>
+          <TabsTrigger value="overview">{t('dashboard.tutor.tabs.overview')}</TabsTrigger>
+          <TabsTrigger value="schedule">{t('dashboard.tutor.tabs.schedule')}</TabsTrigger>
+          <TabsTrigger value="students">{t('dashboard.tutor.tabs.students')}</TabsTrigger>
+          <TabsTrigger value="earnings">{t('dashboard.tutor.tabs.earnings')}</TabsTrigger>
+          <TabsTrigger value="profile">{t('dashboard.tutor.tabs.profile')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-6">
@@ -106,46 +113,46 @@ export function TutorDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Cours ce mois</CardTitle>
+                <CardTitle className="text-sm font-medium">{t('dashboard.tutor.stats.lessonsThisMonth')}</CardTitle>
                 <BookOpen className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">28</div>
-                <p className="text-xs text-muted-foreground">+5 par rapport au mois dernier</p>
+                <p className="text-xs text-muted-foreground">+5 {t('dashboard.tutor.stats.lessonsCompare')}</p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Étudiants actifs</CardTitle>
+                <CardTitle className="text-sm font-medium">{t('dashboard.tutor.stats.activeStudents')}</CardTitle>
                 <Users className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{tutor.totalStudents}</div>
-                <p className="text-xs text-muted-foreground">+3 nouveaux ce mois</p>
+                <p className="text-xs text-muted-foreground">+3 {t('dashboard.tutor.stats.newStudents')}</p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Note moyenne</CardTitle>
+                <CardTitle className="text-sm font-medium">{t('dashboard.tutor.stats.averageRating')}</CardTitle>
                 <Star className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{tutor.rating}/5</div>
-                <p className="text-xs text-muted-foreground">Basé sur 127 avis</p>
+                <p className="text-xs text-muted-foreground">{t('dashboard.tutor.stats.basedOnReviews')} 127 {t('dashboard.tutor.stats.reviews')}</p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Revenus ce mois</CardTitle>
+                <CardTitle className="text-sm font-medium">{t('dashboard.tutor.stats.earningsThisMonth')}</CardTitle>
                 <Euro className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{earnings.thisMonth}€</div>
                 <p className="text-xs text-muted-foreground">
-                  +{earnings.thisMonth - earnings.lastMonth}€ vs mois dernier
+                  +{earnings.thisMonth - earnings.lastMonth}€ {t('dashboard.tutor.stats.vsLastMonth')}
                 </p>
               </CardContent>
             </Card>
@@ -156,17 +163,17 @@ export function TutorDashboard() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <CheckCircle className="h-5 w-5 text-green-600" />
-                Statut du profil
+{t('dashboard.tutor.profileStatus.title')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-medium text-green-600">Profil vérifié</p>
-                  <p className="text-sm text-muted-foreground">Votre profil est complet et vérifié</p>
+                  <p className="font-medium text-green-600">{t('dashboard.tutor.profileStatus.verified')}</p>
+                  <p className="text-sm text-muted-foreground">{t('dashboard.tutor.profileStatus.description')}</p>
                 </div>
                 <Badge variant="default" className="bg-green-100 text-green-800">
-                  Vérifié
+{t('dashboard.tutor.profileStatus.badge')}
                 </Badge>
               </div>
             </CardContent>
@@ -177,7 +184,7 @@ export function TutorDashboard() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Calendar className="h-5 w-5" />
-                Prochains cours
+{t('dashboard.tutor.upcomingLessons.title')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -190,7 +197,7 @@ export function TutorDashboard() {
                       </div>
                       <div>
                         <h4 className="font-semibold">{lesson.subject}</h4>
-                        <p className="text-sm text-muted-foreground">avec {lesson.student}</p>
+                        <p className="text-sm text-muted-foreground">{t('dashboard.tutor.upcomingLessons.with')} {lesson.student}</p>
                         <p className="text-xs text-muted-foreground">
                           {lesson.date} à {lesson.time} ({lesson.duration})
                         </p>
@@ -198,11 +205,11 @@ export function TutorDashboard() {
                     </div>
                     <div className="flex items-center space-x-2">
                       <Badge variant={lesson.status === "confirmed" ? "default" : "secondary"}>
-                        {lesson.status === "confirmed" ? "Confirmé" : "En attente"}
+{lesson.status === "confirmed" ? t('dashboard.tutor.upcomingLessons.confirmed') : t('dashboard.tutor.upcomingLessons.pending')}
                       </Badge>
                       <Button size="sm">
                         <Video className="h-4 w-4 mr-2" />
-                        Démarrer
+{t('dashboard.tutor.upcomingLessons.start')}
                       </Button>
                     </div>
                   </div>
@@ -215,15 +222,20 @@ export function TutorDashboard() {
         <TabsContent value="schedule" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Gestion du planning</CardTitle>
-              <CardDescription>Gérez vos disponibilités et créneaux</CardDescription>
+              <CardTitle>{t('dashboard.tutor.schedule.title')}</CardTitle>
+              <CardDescription>{t('dashboard.tutor.schedule.description')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="text-center py-8">
                 <Calendar className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="font-semibold mb-2">Calendrier interactif</h3>
-                <p className="text-muted-foreground mb-4">Gérez vos disponibilités et visualisez vos cours</p>
-                <Button>Ouvrir le calendrier</Button>
+                <h3 className="font-semibold mb-2">{t('dashboard.tutor.schedule.calendar')}</h3>
+                <p className="text-muted-foreground mb-4">{t('dashboard.tutor.schedule.calendarDescription')}</p>
+                <Button asChild>
+                  <Link href="/dashboard/tutor/availability">
+                    <Calendar className="h-4 w-4 mr-2" />
+                    {t('dashboard.tutor.schedule.openCalendar')}
+                  </Link>
+                </Button>
               </div>
             </CardContent>
           </Card>
@@ -232,8 +244,8 @@ export function TutorDashboard() {
         <TabsContent value="students" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Mes étudiants</CardTitle>
-              <CardDescription>Suivez les progrès de vos étudiants</CardDescription>
+              <CardTitle>{t('dashboard.tutor.students.title')}</CardTitle>
+              <CardDescription>{t('dashboard.tutor.students.description')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -255,13 +267,13 @@ export function TutorDashboard() {
                           {student.subject} - {student.level}
                         </p>
                         <p className="text-xs text-muted-foreground">
-                          {student.lessons} cours • Dernier cours: {student.lastLesson}
+                          {student.lessons} {t('dashboard.tutor.students.lessons')} • {t('dashboard.tutor.students.lastLesson')} {student.lastLesson}
                         </p>
                       </div>
                     </div>
                     <div className="text-right">
                       <div className="flex items-center space-x-2 mb-2">
-                        <span className="text-sm font-medium">Progression</span>
+                        <span className="text-sm font-medium">{t('dashboard.tutor.students.progress')}</span>
                         <span className="text-sm text-muted-foreground">{student.progress}%</span>
                       </div>
                       <Progress value={student.progress} className="w-24 h-2" />
@@ -277,23 +289,23 @@ export function TutorDashboard() {
           <div className="grid md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle>Revenus</CardTitle>
+                <CardTitle>{t('dashboard.tutor.earnings.title')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Ce mois</span>
+                  <span className="text-sm text-muted-foreground">{t('dashboard.tutor.earnings.thisMonth')}</span>
                   <span className="font-semibold">{earnings.thisMonth}€</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Mois dernier</span>
+                  <span className="text-sm text-muted-foreground">{t('dashboard.tutor.earnings.lastMonth')}</span>
                   <span className="font-semibold">{earnings.lastMonth}€</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">En attente</span>
+                  <span className="text-sm text-muted-foreground">{t('dashboard.tutor.earnings.pending')}</span>
                   <span className="font-semibold text-orange-600">{earnings.pending}€</span>
                 </div>
                 <div className="flex justify-between items-center pt-2 border-t">
-                  <span className="font-medium">Total gagné</span>
+                  <span className="font-medium">{t('dashboard.tutor.earnings.totalEarned')}</span>
                   <span className="font-bold text-lg">{earnings.total}€</span>
                 </div>
               </CardContent>
@@ -301,19 +313,19 @@ export function TutorDashboard() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Paiements</CardTitle>
+                <CardTitle>{t('dashboard.tutor.earnings.payments')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <h4 className="font-medium">Méthode de paiement</h4>
-                    <p className="text-sm text-muted-foreground">Virement bancaire</p>
+                    <h4 className="font-medium">{t('dashboard.tutor.earnings.paymentMethod')}</h4>
+                    <p className="text-sm text-muted-foreground">{t('dashboard.tutor.earnings.bankTransfer')}</p>
                     <Button variant="outline" size="sm">
-                      Modifier
+{t('dashboard.tutor.earnings.modify')}
                     </Button>
                   </div>
                   <div className="space-y-2">
-                    <h4 className="font-medium">Prochain paiement</h4>
+                    <h4 className="font-medium">{t('dashboard.tutor.earnings.nextPayment')}</h4>
                     <p className="text-sm text-muted-foreground">15 janvier 2024</p>
                     <p className="text-sm font-medium">{earnings.pending}€</p>
                   </div>
@@ -327,7 +339,7 @@ export function TutorDashboard() {
           <div className="grid md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle>Profil public</CardTitle>
+                <CardTitle>{t('dashboard.tutor.profile.publicProfile')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center space-x-4">
@@ -349,36 +361,40 @@ export function TutorDashboard() {
                     </div>
                   </div>
                 </div>
-                <Button className="w-full">Modifier le profil public</Button>
+                <Button className="w-full" asChild>
+                  <Link href="/dashboard/tutor/profile">{t('dashboard.tutor.profile.editPublicProfile')}</Link>
+                </Button>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle>Paramètres du compte</CardTitle>
+                <CardTitle>{t('dashboard.tutor.profile.accountSettings')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <h4 className="font-medium">Disponibilités</h4>
-                  <p className="text-sm text-muted-foreground">Gérer vos créneaux disponibles</p>
-                  <Button variant="outline" size="sm">
-                    Configurer
+                  <h4 className="font-medium">{t('dashboard.tutor.profile.availability')}</h4>
+                  <p className="text-sm text-muted-foreground">{t('dashboard.tutor.profile.availabilityDescription')}</p>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href="/dashboard/tutor/availability">{t('dashboard.tutor.profile.configure')}</Link>
                   </Button>
                 </div>
                 <div className="space-y-2">
-                  <h4 className="font-medium">Tarifs</h4>
-                  <p className="text-sm text-muted-foreground">Définir vos prix par matière</p>
+                  <h4 className="font-medium">{t('dashboard.tutor.profile.rates')}</h4>
+                  <p className="text-sm text-muted-foreground">{t('dashboard.tutor.profile.ratesDescription')}</p>
                   <Button variant="outline" size="sm">
                     <Euro className="h-4 w-4 mr-2" />
-                    Modifier
+{t('dashboard.tutor.earnings.modify')}
                   </Button>
                 </div>
                 <div className="space-y-2">
-                  <h4 className="font-medium">Documents</h4>
-                  <p className="text-sm text-muted-foreground">Diplômes et certifications</p>
-                  <Button variant="outline" size="sm">
-                    <FileText className="h-4 w-4 mr-2" />
-                    Gérer
+                  <h4 className="font-medium">{t('dashboard.tutor.profile.documents')}</h4>
+                  <p className="text-sm text-muted-foreground">{t('dashboard.tutor.profile.documentsDescription')}</p>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href="/dashboard/tutor/profile">
+                      <FileText className="h-4 w-4 mr-2" />
+                      {t('dashboard.tutor.profile.manage')}
+                    </Link>
                   </Button>
                 </div>
               </CardContent>

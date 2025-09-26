@@ -27,37 +27,120 @@ interface TutorProfileProps {
   tutorId: string
 }
 
-export default function TutorProfile() {
+export function TutorProfile({ tutorId }: TutorProfileProps) {
   const { t } = useI18n()
   const [activeTab, setActiveTab] = useState("about")
 
   // Mock data - would normally fetch based on tutorId
-  const tutor = {
-    id: 1,
-    name: "Prof. Jean Martin",
-    avatar: "/placeholder.svg?height=120&width=120",
-    subjects: [t("tutors.profile.mock.subjects.mathematics"), t("tutors.profile.mock.subjects.physics")],
-    level: [t("tutors.profile.mock.levels.highSchool"), t("tutors.profile.mock.levels.university")],
-    rating: 4.9,
-    reviewCount: 127,
-    hourlyRate: 35,
-    location: "Paris",
-    languages: [t("tutors.profile.mock.languages.french"), t("tutors.profile.mock.languages.english")],
-    experience: 8,
-    description:
-      "Professeur agrégé de mathématiques avec 8 ans d'expérience dans l'enseignement. Je me spécialise dans la préparation au baccalauréat et aux concours d'entrée aux grandes écoles. Ma méthode pédagogique s'adapte au rythme de chaque élève pour garantir une progression optimale.",
-    availability: t("tutors.profile.mock.availability.available"),
-    verified: true,
-    responseTime: "< 1h",
-    completedLessons: 450,
-    education: [
-      "Agrégation de Mathématiques - École Normale Supérieure",
-      "Master en Mathématiques Appliquées - Université Paris-Saclay",
-    ],
-    certifications: ["Certification Pédagogie Numérique", "Formation aux Troubles de l'Apprentissage"],
-    specialties: ["Préparation Bac S", "Concours Grandes Écoles", "Mathématiques Appliquées"],
-    videoIntro: "/placeholder-video.mp4",
+  const getTutorData = (id: string) => {
+    // Simulation de récupération des données basées sur l'ID
+    const mockTutors = {
+      "1": {
+        id: 1,
+        name: "Prof. Jean Martin",
+        avatar: "/placeholder.svg?height=120&width=120",
+        subjects: [t("tutors.profile.mock.subjects.mathematics"), t("tutors.profile.mock.subjects.physics")],
+        level: [t("tutors.profile.mock.levels.highSchool"), t("tutors.profile.mock.levels.university")],
+        rating: 4.9,
+        reviewCount: 127,
+        hourlyRate: 35,
+        location: "Paris",
+        languages: [t("tutors.profile.mock.languages.french"), t("tutors.profile.mock.languages.english")],
+        experience: 8,
+        description: "Professeur agrégé de mathématiques avec 8 ans d'expérience dans l'enseignement. Je me spécialise dans la préparation au baccalauréat et aux concours d'entrée aux grandes écoles. Ma méthode pédagogique s'adapte au rythme de chaque élève pour garantir une progression optimale.",
+        availability: t("tutors.profile.mock.availability.available"),
+        verified: true,
+        responseTime: "< 1h",
+        completedLessons: 450,
+        education: [
+          "Agrégation de Mathématiques - École Normale Supérieure",
+          "Master en Mathématiques Appliquées - Université Paris-Saclay",
+        ],
+        certifications: ["Certification Pédagogie Numérique", "Formation aux Troubles de l'Apprentissage"],
+        specialties: ["Préparation Bac S", "Concours Grandes Écoles", "Mathématiques Appliquées"],
+        videoIntro: "/placeholder-video.mp4",
+      },
+      "2": {
+        id: 2,
+        name: "Dr. Marie Leroy",
+        avatar: "/placeholder.svg?height=120&width=120",
+        subjects: [t("tutors.profile.mock.subjects.physics"), t("tutors.profile.mock.subjects.chemistry")],
+        level: [t("tutors.profile.mock.levels.middleSchool"), t("tutors.profile.mock.levels.highSchool")],
+        rating: 4.8,
+        reviewCount: 89,
+        hourlyRate: 40,
+        location: "Lyon",
+        languages: [t("tutors.profile.mock.languages.french")],
+        experience: 12,
+        description: "Docteur en physique, enseignante passionnée. Méthodes pédagogiques innovantes pour rendre les sciences accessibles.",
+        availability: t("tutors.profile.mock.availability.available"),
+        verified: true,
+        responseTime: "< 2h",
+        completedLessons: 320,
+        education: [
+          "Doctorat en Physique - Université de Lyon",
+          "Master en Physique Théorique - ENS Lyon",
+        ],
+        certifications: ["Certification Enseignement Supérieur", "Formation Pédagogie Active"],
+        specialties: ["Physique Quantique", "Thermodynamique", "Optique"],
+        videoIntro: "/placeholder-video.mp4",
+      },
+      "3": {
+        id: 3,
+        name: "Mme. Sophie Rousseau",
+        avatar: "/placeholder.svg?height=120&width=120",
+        subjects: [t("tutors.profile.mock.subjects.french"), t("tutors.profile.mock.subjects.literature")],
+        level: [t("tutors.profile.mock.levels.middleSchool"), t("tutors.profile.mock.levels.highSchool")],
+        rating: 4.7,
+        reviewCount: 156,
+        hourlyRate: 30,
+        location: "Marseille",
+        languages: [t("tutors.profile.mock.languages.french"), t("tutors.profile.mock.languages.spanish")],
+        experience: 6,
+        description: "Professeure de français certifiée. Spécialisée dans l'analyse littéraire et la préparation aux examens.",
+        availability: t("tutors.profile.mock.availability.busy"),
+        verified: true,
+        responseTime: "< 3h",
+        completedLessons: 280,
+        education: [
+          "CAPES de Lettres Modernes - Université d'Aix-Marseille",
+          "Master en Littérature Française - Sorbonne",
+        ],
+        certifications: ["Certification FLE", "Formation Dyslexie"],
+        specialties: ["Analyse Littéraire", "Préparation Bac L", "Français Langue Étrangère"],
+        videoIntro: "/placeholder-video.mp4",
+      },
+      "4": {
+        id: 4,
+        name: "M. Pierre Dubois",
+        avatar: "/placeholder.svg?height=120&width=120",
+        subjects: [t("tutors.profile.mock.subjects.history"), t("tutors.profile.mock.subjects.geography")],
+        level: [t("tutors.profile.mock.levels.middleSchool"), t("tutors.profile.mock.levels.highSchool")],
+        rating: 4.6,
+        reviewCount: 73,
+        hourlyRate: 28,
+        location: "Toulouse",
+        languages: [t("tutors.profile.mock.languages.french"), t("tutors.profile.mock.languages.english")],
+        experience: 5,
+        description: "Enseignant d'histoire-géographie passionné. Approche interactive et mémorisation facilitée.",
+        availability: t("tutors.profile.mock.availability.available"),
+        verified: false,
+        responseTime: "< 4h",
+        completedLessons: 190,
+        education: [
+          "CAPES Histoire-Géographie - Université Toulouse II",
+          "Master en Histoire Contemporaine - Université Toulouse I",
+        ],
+        certifications: ["Formation Numérique Éducatif"],
+        specialties: ["Histoire du XXe siècle", "Géographie Urbaine", "Préparation Brevet"],
+        videoIntro: "/placeholder-video.mp4",
+      }
+    }
+    
+    return mockTutors[id as keyof typeof mockTutors] || mockTutors["1"]
   }
+
+  const tutor = getTutorData(tutorId)
 
   const reviews = [
     {
@@ -463,3 +546,5 @@ export default function TutorProfile() {
     </div>
   )
 }
+
+export default TutorProfile
